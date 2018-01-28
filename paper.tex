@@ -1,0 +1,441 @@
+% This template has been tested with IEEEtran of 2015.
+
+% !TeX spellcheck = en-US
+% !TeX encoding = utf8
+% !TeX program = pdflatex
+% !BIB program = bibtex
+% -*- coding:utf-8 mod:LaTeX -*-
+
+%cmap has to be loaded before any font package (such as newtxmath)
+\RequirePackage{cmap}
+
+% DO NOT DOWNLOAD IEEEtran.cls - Use the one of your LaTeX distribution
+\documentclass[conference,compsoc]{IEEEtran}
+
+% use nicer font for code
+\usepackage[zerostyle=b,scaled=.75]{newtxtt}
+
+% for demonstration purposes
+\usepackage{mwe}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc} %support umlauts in the input
+
+\usepackage{graphicx}
+
+%Set English as language and allow to write hyphenated"=words
+%
+%english has to go last to set it as default language
+\usepackage[ngerman,english]{babel}
+%Hint by http://tex.stackexchange.com/a/321066/9075 -> enable "= as dashes
+\addto\extrasenglish{\languageshorthands{ngerman}\useshorthands{"}}
+
+% backticks (`) are rendered as such in verbatim environment. See https://tex.stackexchange.com/a/341057/9075 for details.
+\usepackage{upquote}
+
+%extended enumerate, such as \begin{compactenum}
+\usepackage{paralist}
+
+%for easy quotations: \enquote{text}
+\usepackage{csquotes}
+
+%enable margin kerning
+\RequirePackage{iftex}
+\ifPDFTeX
+  \RequirePackage[%
+    final,%
+    tracking=smallcaps,%
+    expansion=alltext,%
+    protrusion=alltext-nott]{microtype}%
+\else
+  \RequirePackage[%
+    final,%
+    protrusion=alltext-nott]{microtype}%
+\fi%
+
+%tweak \url{...}
+\usepackage{url}
+%\urlstyle{same}
+%improve wrapping of URLs - hint by http://tex.stackexchange.com/a/10419/9075
+\makeatletter
+\g@addto@macro{\UrlBreaks}{\UrlOrds}
+\makeatother
+%nicer // - solution by http://tex.stackexchange.com/a/98470/9075
+%DO NOT ACTIVATE -> prevents line breaks
+%\makeatletter
+%\def\Url@twoslashes{\mathchar`\/\@ifnextchar/{\kern-.2em}{}}
+%\g@addto@macro\UrlSpecials{\do\/{\Url@twoslashes}}
+%\makeatother
+
+%diagonal lines in a table - http://tex.stackexchange.com/questions/17745/diagonal-lines-in-table-cell
+%slashbox is not available in texlive (due to licensing) and also gives bad results. This, we use diagbox
+%\usepackage{diagbox}
+
+\usepackage{booktabs}
+
+%required for pdfcomment later
+\usepackage{xcolor}
+
+%for listings
+\usepackage{listings}
+\lstset{%
+  basicstyle=\ttfamily,%
+  columns=fixed,%
+  basewidth=.5em,%
+  xleftmargin=0.5cm,%
+  captionpos=b}%
+
+%enable nice comments
+%this also loads hyperref
+\usepackage{pdfcomment}
+%enable hyperref without colors and without bookmarks
+\hypersetup{hidelinks,
+  colorlinks=true,
+  allcolors=black,
+  pdfstartview=Fit,
+  breaklinks=true}
+%enables correct jumping to figures when referencing
+\usepackage[all]{hypcap}
+%Fix counter as described at https://tex.stackexchange.com/a/28334/9075
+\usepackage{chngcntr}
+\AtBeginDocument{\counterwithout{lstlisting}{section}}
+
+%compatibility of packages minted and listings with respect to the numbering of "List." caption
+%source: https://tex.stackexchange.com/a/269510/9075
+\AtBeginEnvironment{listing}{\setcounter{listing}{\value{lstlisting}}}
+\AtEndEnvironment{listing}{\stepcounter{lstlisting}}
+
+\newcommand{\commentontext}[2]{\colorbox{yellow!60}{#1}\pdfcomment[color={0.234 0.867 0.211},hoffset=-6pt,voffset=10pt,opacity=0.5]{#2}}
+\newcommand{\commentatside}[1]{\pdfcomment[color={0.045 0.278 0.643},icon=Note]{#1}}
+
+%compatibality with packages todo, easy-todo, todonotes
+\newcommand{\todo}[1]{\commentatside{#1}}
+%compatiblity with package fixmetodonotes
+\newcommand{\TODO}[1]{\commentatside{#1}}
+
+%enable \cref{...} and \Cref{...} instead of \ref: Type of reference included in the link
+\usepackage[capitalise,nameinlink]{cleveref}
+
+%\usepackage[newfloat]{minted}
+
+\usepackage{ltxcmds}
+\makeatletter
+\newcommand{\IfPackageLoaded}[2]{\ltx@ifpackageloaded{#1}{#2}{}}
+\makeatother
+
+\IfPackageLoaded{minted}{
+  % Line numbers not flowing out of the margin
+  \setminted{numbersep=5pt, xleftmargin=12pt}
+
+  %http://www.jevon.org/wiki/Eclipse_Pygments_Style
+  %\usemintedstyle{eclipse}
+  %
+  %\usemintedstyle{autumn}
+  %\usemintedstyle{rrt}
+  %\usemintedstyle{borland}
+  %\usemintedstyle{friendlygrayscale}
+  \usemintedstyle{friendly}
+
+  % We need to load caption to have a bold font on the label
+  % The other parameters mimic the layout of the LNCS class
+  \usepackage[labelfont=bf,font=small,skip=4pt]{caption}
+  \SetupFloatingEnvironment{listing}{name=List.,within=none}
+}{
+}
+%
+%Following definitions are outside of IfPackageLoaded; inside, they are not visible
+%
+%Intermediate solution for hyperlined refs. See https://tex.stackexchange.com/q/132420/9075 for more information.
+\newcommand{\Vlabel}[1]{\label[line]{#1}\hypertarget{#1}{}}
+\newcommand{\lref}[1]{\hyperlink{#1}{\FancyVerbLineautorefname~\ref*{#1}}}
+
+%If minted is not loaded, provide the environments nevertheless
+\ifcsmacro{listing}{}{
+  \newenvironment{listing}[1][htbp!]{\begin{figure}[#1]}{\end{figure}}
+  \newcounter{listing}
+}
+\ifcsmacro{minted}{}{%
+  \newenvironment{minted}[1][]{
+    \bfseries
+    Package minted was not loaded, so there is no XML code shown.
+
+    In case you load minted, please be sure to \begin{enumerate}[a)]
+      \item Have \href{https://www.python.org/downloads/}{python} and \href{http://pygments.org/download/}{pygments} installed
+      \item Excecute pdflatex using \texttt{-shell-escape}
+    \end{enumerate}
+  }{}
+}
+
+\usepackage{xspace}
+%\newcommand{\eg}{e.\,g.\xspace}
+%\newcommand{\ie}{i.\,e.\xspace}
+\newcommand{\eg}{e.\,g.,\ }
+\newcommand{\ie}{i.\,e.,\ }
+
+%introduce \powerset - hint by http://matheplanet.com/matheplanet/nuke/html/viewtopic.php?topic=136492&post_id=997377
+\DeclareFontFamily{U}{MnSymbolC}{}
+\DeclareSymbolFont{MnSyC}{U}{MnSymbolC}{m}{n}
+\DeclareFontShape{U}{MnSymbolC}{m}{n}{
+  <-6>    MnSymbolC5
+  <6-7>   MnSymbolC6
+  <7-8>   MnSymbolC7
+  <8-9>   MnSymbolC8
+  <9-10>  MnSymbolC9
+  <10-12> MnSymbolC10
+  <12->   MnSymbolC12%
+}{}
+\DeclareMathSymbol{\powerset}{\mathord}{MnSyC}{180}
+
+%% Packages proposed by IEEEtran
+
+\ifCLASSOPTIONcompsoc
+  % IEEE Computer Society needs nocompress option
+  % requires cite.sty v4.0 or later (November 2003)
+  \usepackage[nocompress]{cite}
+\else
+  % normal IEEE
+  \usepackage{cite}
+\fi
+
+% *** SUBFIGURE PACKAGES ***
+\ifCLASSOPTIONcompsoc
+  \usepackage[caption=false,font=footnotesize,labelfont=sf,textfont=sf]{subfig}
+\else
+  \usepackage[caption=false,font=footnotesize]{subfig}
+\fi
+
+\usepackage{stfloats}
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+
+
+
+
+%% vv  scroll down for content  vv
+
+
+
+
+
+
+
+\begin{document}
+%\IEEEoverridecommandlockouts
+
+\title{Quick start for LaTeXing with IEEEtran.cls for\\ IEEE Computer Society Conferences}
+
+\author{%
+  \IEEEauthorblockN{Oliver Kopp}
+  \IEEEauthorblockA{University of Stuttgart, Germany\\
+    \{lastname\}@ipvs.uni-stuttgart.de}
+  \and
+  \IEEEauthorblockN{Michael Shell}
+  \IEEEauthorblockA{School of Electrical and\\Computer Engineering\\
+    Georgia Institute of Technology\\
+    Atlanta, Georgia 30332--0250\\
+    \url{http://www.michaelshell.org/contact.html}}
+}
+
+% use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+% make the title area
+\maketitle
+
+% In case you want to add a copyright statement.
+% Works only in the compsoc conferences
+% Source: https://tex.stackexchange.com/a/325013/9075
+% Alternative solutions:
+%  - https://tex.stackexchange.com/a/279134/9075
+%  - https://tex.stackexchange.com/q/279789/9075 (TikZ)
+%  - https://tex.stackexchange.com/a/200330/9075 - for non-comsoc papers
+\iffalse
+  \IEEEoverridecommandlockouts
+  \IEEEpubid{\begin{minipage}{\textwidth}\ \\[12pt] \centering
+      1551-3203 \copyright 2015 IEEE.
+      Personal use is permitted, but republication/redistribution requires IEEE permission.
+      \\
+      See \url{https://www.ieee.org/publications_standards/publications/rights/index.html} for more information.
+    \end{minipage}}
+\fi
+
+\begin{abstract}
+  \blindtext
+\end{abstract}
+
+% For peer review papers, you can put extra information on the cover
+% page as needed:
+% \ifCLASSOPTIONpeerreview
+% \begin{center} \bfseries EDICS Category: 3-BBND \end{center}
+% \fi
+%
+% For peerreview papers, this IEEEtran command inserts a page break and
+% creates the second title. It will be ignored for other modes.
+\IEEEpeerreviewmaketitle
+
+
+
+\section{Introduction}
+\label{sec:intro}
+
+\blindtext[2]
+
+The remainder of the paper starts with a presentation of related work (\cref{sec:relatedwork}).
+It is followed by a presentation of hints on \LaTeX{} (\cref{sec:hints}).
+Finally, a conclusion is drawn and outlook on future work is made (\cref{sec:outlook}).
+
+\section{Related Work}
+\label{sec:relatedwork}
+
+Winery~\cite{Winery} is graphical \commentontext{modeling}{modeling with one \enquote{l}, because of AE} tool.
+
+\blindtext[5]
+
+\section{LaTeX Hints}
+\label{sec:hints}
+
+\Cref{L1} shows a listing typeset using the \texttt{lstlisting} environment.
+
+\href{https://github.com/gpoore/minted}{minted} is an alternative package, which enables syntax highlighting using \href{http://pygments.org/}{pygments}.
+This, in turn, requires Python, so it is disabled by default.
+In case you load it above, be sure to run pdflatex with \texttt{-shell-escape} option.
+\Cref{lst:xml} shows an XML-Listing.
+You can point to a single line: \lref{commentline}.
+If you do not want to use minted, just delete the example listing and this paragraph.
+
+\begin{lstlisting}[caption={Example Listing}, label=L1, language=Java, float]
+public class Hello {
+    public static void main (String[] args) {
+        System.out.println("Hello World!");
+    }
+}
+\end{lstlisting}
+
+\begin{listing}[ht]
+  \begin{minted}[linenos=true,escapeinside=||]{xml}
+<demo>
+  <node>
+    <!-- comment --> |\Vlabel{commentline}|
+  </node>
+</demo>
+\end{minted}
+  \caption{XML-Dokument rendered using minted}
+  \label{lst:xml}
+\end{listing}
+
+
+\begin{figure}
+  \includegraphics[width=.5\textwidth]{example-grid-100x100bp}
+  \caption{Simple Figure}
+  \label{fig:simple}
+\end{figure}
+
+\begin{figure*}
+  \centering
+  \includegraphics[width=.6\textwidth]{example-image-16x9}
+  \caption{16x9 Figure}
+  \label{fig:16x9}
+\end{figure*}
+
+\begin{figure*}[!b]
+  \centering
+  \subfloat[Case I]{\includegraphics[width=.4\textwidth]{example-image-a}%
+    \label{fig_first_case}}
+  \hfil
+  \subfloat[Case II]{\includegraphics[width=.4\textwidth]{example-image-b}%
+    \label{fig_second_case}}
+  \caption{Simulation results for the network.}
+  \label{fig_sim}
+  % Note that often IEEE papers with subfigures do not employ subfigure
+  % captions (using the optional argument to \subfloat[]), but instead will
+  % reference/describe all of them (a), (b), etc., within the main caption.
+  % Be aware that for subfig.sty to generate the (a), (b), etc., subfigure
+  % labels, the optional argument to \subfloat must be present. If a
+  % subcaption is not desired, just leave its contents blank,
+  % e.g., \subfloat[].
+\end{figure*}
+
+\begin{table}
+  \caption{Simple Table}
+  \label{tab:simple}
+  \centering
+  \begin{tabular}{ll}
+    \toprule
+    Heading1 & Heading2 \\
+    \midrule
+    One      & Two      \\
+    Thee     & Four     \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+cref Demonstration: Cref at beginning of sentence, cref in all other cases.
+
+\Cref{fig:simple} shows a simple fact, although \cref{fig:simple} could also show something else.
+\Cref{fig:16x9} shows an 16x9 image spanning two columns.
+\Cref{fig_first_case} is the first subfloat, whereas \Cref{fig_second_case} is the second one.
+
+\Cref{tab:simple} shows a simple fact, although \cref{tab:simple} could also show something else.
+
+\Cref{sec:intro} shows a simple fact, although \cref{sec:intro} could also show something else.
+
+Brackets work as designed:
+<test>
+One can also input backquotes in verbatim text: \verb|`test`|.
+
+The symbol for powerset is now correct: $\powerset$ and not a Weierstrass p ($\wp$).
+
+\begin{inparaenum}
+  \item All these items...
+  \item ...appear in one line
+  \item This is enabled by the paralist package.
+\end{inparaenum}
+
+``something in quotes'' using plain tex or use \enquote{the enquote command}.
+
+You can now write words containing hyphens which are hyphenated (application"=specific) at other places.
+This is enabled by an additional configuration of the babel package.
+In case you write \enquote{application-specific}, then the word will only be hyphenated at the dash.
+You can also write applica\allowbreak{}tion-specific, but this is much more effort.
+
+\blindtext[4]
+
+\section{Conclusion and Outlook}
+\label{sec:outlook}
+
+\blindtext
+
+% use section* for acknowledgment
+\ifCLASSOPTIONcompsoc
+  % The Computer Society usually uses the plural form
+  \section*{Acknowledgments}
+\else
+  % regular IEEE prefers the singular form
+  \section*{Acknowledgment}
+\fi
+
+This work received support from the \href{https://latextemplates.github.io/IEEE/}{IEEE LaTeX Template}.
+
+
+In the bibliography, use \texttt{\textbackslash textsuperscript} for ``st'', ``nd'', \ldots:
+E.g., \enquote{The 2\textsuperscript{nd} conference on examples}.
+When you use \href{https://www.jabref.org}{JabRef}, you can use the clean up command to achieve that.
+See \url{https://help.jabref.org/en/CleanupEntries} for an overview of the cleanup functionality.
+
+% trigger a \newpage just before the given reference
+% number - used to balance the columns on the last page
+% adjust value as needed - may need to be readjusted if
+% the document is modified later
+%\IEEEtriggeratref{8}
+% The "triggered" command can be changed if desired:
+%\IEEEtriggercmd{\enlargethispage{-5in}}
+
+\bibliographystyle{IEEEtran}
+% argument is your BibTeX string definitions and bibliography database(s)
+\bibliography{paper}
+
+\end{document}
+
+
