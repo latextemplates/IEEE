@@ -36,7 +36,7 @@ In case you need other configurations, please adapt `paper.tex`.
  * Support for `\powerset` command.
  * Support todos as pdf annotations. This is enabled by the [pdfcomment] package.
  * [microtypographic extensions](https://www.ctan.org/pkg/microtype) for a better look of the paper.
- * Adds modern packages such as [microtype], [cleveref], [csquotes], [booktabs], [paralist], [hyperref], [hypcap], [upquote], [cfr-lm].
+ * Adds modern packages such as [microtype], [cleveref], [csquotes], [booktabs], [paralist], [hyperref], [hypcap], [upquote].
  * Shows how IEEE copyright notice can be added.
  * Optional: Support for [minted] package. Uncomment `\usepackage[newfloat]{minted}` to get started.
  * Ready-to-go configuration for [latexindent].
