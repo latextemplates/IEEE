@@ -28,7 +28,7 @@ In case you need other configurations, please adapt `paper.tex`.
 
 ## Features
 
- * Provides a skeletal [paper.tex](paper.tex) file.
+ * Provides skeletal [paper.tex](paper.tex) and [paper-compsocconf.tex](paper-compsocconf.tex) files.
  * Generated PDF allows for copy and paste of text without getting words with ligatures such as "workflow" destroyed.
    This is enabled by the [cmap] package, which encodes ligatures (such as fl) using unicode characters.
  * Support of hyperlinked references without extra color thanx to [hyperref].
@@ -45,13 +45,16 @@ Examples:
 
 - [paper.pdf](https://latextemplates.github.io/IEEE/paper.pdf) - regular paper.
 - [paper-minted.pdf](https://latextemplates.github.io/IEEE/paper-minted.pdf) - paper showing minted in action.
+- [paper-compsocconf.pdf](https://latextemplates.github.io/IEEE/paper.pdf) - papers for IEEE Computer Society conference papers.
+- [paper-compsocconf-minted.pdf](https://latextemplates.github.io/IEEE/paper-minted.pdf) - paper for IEEE Computer Society conference papers showing minted in action.
 
 ## Quick start
 
  * Click on `Download ZIP` or [here](https://github.com/latextemplates/IEEE/archive/master.zip).
  * Extract `master.zip` in the folder where you want to write your paper.
- * Edit [paper.tex](paper.tex).
- * `latexmk paper`.
+ * In case you are working in the computer science field: Edit [paper-compsocconf.tex](paper-compsocconf.tex).
+ * In case you are NOT working in the computer science field: Edit [paper.tex](paper.tex).
+ * `latexmk paper-compsocconf` OR `latexmk paper`.
 
 ## Tool hints
 

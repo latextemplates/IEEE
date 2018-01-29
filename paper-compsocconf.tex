@@ -10,7 +10,7 @@
 \RequirePackage{cmap}
 
 % DO NOT DOWNLOAD IEEEtran.cls - Use the one of your LaTeX distribution
-\documentclass[conference]{IEEEtran}
+\documentclass[conference,compsocconf]{IEEEtran}
 
 % use nicer font for code
 \usepackage[zerostyle=b,scaled=.75]{newtxtt}
@@ -245,21 +245,25 @@
 \maketitle
 
 % In case you want to add a copyright statement.
-%
-% Source: https://tex.stackexchange.com/a/325013/9075
-%
-% Alternative solutions:
-%  - https://tex.stackexchange.com/a/279134/9075
-%  - https://tex.stackexchange.com/q/279789/9075 (TikZ)
-%  - https://tex.stackexchange.com/a/200330/9075 - for non-comsocconf papers
+% Works only in the compsocconf
+% Source: https://tex.stackexchange.com/a/200330/9075
 \iffalse
-  \IEEEoverridecommandlockouts
-  \IEEEpubid{\begin{minipage}{\textwidth}\ \\[12pt] \centering
-      1551-3203 \copyright 2015 IEEE.
-      Personal use is permitted, but republication/redistribution requires IEEE permission.
-      \\
-      See \url{https://www.ieee.org/publications_standards/publications/rights/index.html} for more information.
-    \end{minipage}}
+    \makeatletter
+    \def\ps@IEEEtitlepagestyle{%
+      \def\@oddfoot{\mycopyrightnotice}%
+      \def\@evenfoot{}%
+    }
+    \makeatother
+    \def\mycopyrightnotice{%
+      \begin{minipage}{\textwidth}
+        \footnotesize 
+        1551-3203 \copyright 2015 IEEE.
+        Personal use is permitted, but republication/redistribution requires IEEE permission.
+        \\
+        See \url{https://www.ieee.org/publications_standards/publications/rights/index.html} for more information.
+      \end{minipage}
+      \gdef\mycopyrightnotice{}% just in case
+    }
 \fi
 
 \begin{abstract}

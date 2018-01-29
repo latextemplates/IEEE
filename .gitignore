@@ -1,49 +1,9 @@
 *.bak
 *.bak?
 
-# downloaded from springer - must not be distributed anywhere else
-llncs2e.zip
-
-# contents of llncs2e.zip
-aliascnt.sty
-history.txt
-llncs.cls
-llncs.dem
-llncs.doc
-llncs.dvi
-llncs.ind
-llncsdoc.pdf
-llncsdoc.sty
-readme.txt
-remreset.sty
-splncs.bst
-splncs03.bst
-splncs_srt.bst
-sprmindx.sty
-subjidx.ind
-
-
-
-
-
-
-
 #The output should not be versioned
 paper.pdf
-
-#temporary files by gradle
-.gradle
-
-#temporary file produced by lncs_as branch
-latex.zip
-
-
-
-
-
-
-
-
+paper-compsocconf.pdf
 
 
 
