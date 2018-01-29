@@ -100,7 +100,7 @@
 \usepackage{chngcntr}
 \AtBeginDocument{\counterwithout{lstlisting}{section}}
 
-%compatibility of packages minted and listings with respect to the numbering of "List." caption
+%compatibility of packages minted and listings with respect to the numbering of "Listing" caption
 %source: https://tex.stackexchange.com/a/269510/9075
 \AtBeginEnvironment{listing}{\setcounter{listing}{\value{lstlisting}}}
 \AtEndEnvironment{listing}{\stepcounter{lstlisting}}
@@ -139,7 +139,7 @@
   % We need to load caption to have a bold font on the label
   % The other parameters mimic the layout of the LNCS class
   \usepackage[labelfont=bf,font=small,skip=4pt]{caption}
-  \SetupFloatingEnvironment{listing}{name=List.,within=none}
+  \SetupFloatingEnvironment{listing}{name=Listing,within=none}
 }{
 }
 %
