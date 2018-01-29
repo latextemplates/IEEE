@@ -10,6 +10,13 @@ This template is for the computer science conferences.
 It is based on the `bare_conf_compsoc.tex` distributed by IEEE.
 In case you need other configurations, please adapt `paper-conference.tex` or `paper-conference-compsoc.tex`.
 
+Examples:
+
+- [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) - regular conference paper.
+- [paper-conference-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-minted.pdf) - conference paper showing minted in action.
+- [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf) - papers for IEEE Computer Society conference papers.
+- [paper-conference-compsoc-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc-minted.pdf) - paper for IEEE Computer Society conference papers showing minted in action.
+
 ## TOC
 
 <!-- toc -->
@@ -40,13 +47,6 @@ In case you need other configurations, please adapt `paper-conference.tex` or `p
  * Shows how IEEE copyright notice can be added.
  * Optional: Support for [minted] package. Uncomment `\usepackage[newfloat]{minted}` to get started.
  * Ready-to-go configuration for [latexindent].
-
-Examples:
-
-- [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) - regular conference paper.
-- [paper-conference-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-minted.pdf) - conference paper showing minted in action.
-- [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf) - papers for IEEE Computer Society conference papers.
-- [paper-conference-compsoc-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc-minted.pdf) - paper for IEEE Computer Society conference papers showing minted in action.
 
 ## Quick start
 
