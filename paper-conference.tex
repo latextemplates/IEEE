@@ -10,7 +10,7 @@
 \RequirePackage{cmap}
 
 % DO NOT DOWNLOAD IEEEtran.cls - Use the one of your LaTeX distribution
-\documentclass[conference,compsocconf]{IEEEtran}
+\documentclass[conference]{IEEEtran}
 
 % use nicer font for code
 \usepackage[zerostyle=b,scaled=.75]{newtxtt}
@@ -245,8 +245,14 @@
 \maketitle
 
 % In case you want to add a copyright statement.
-% Works only in the compsocconf
+%
 % Source: https://tex.stackexchange.com/a/200330/9075
+%
+% All possible solutions:
+%  - https://tex.stackexchange.com/a/325013/9075
+%  - https://tex.stackexchange.com/a/279134/9075
+%  - https://tex.stackexchange.com/q/279789/9075 (TikZ)
+%  - https://tex.stackexchange.com/a/200330/9075 - for non-compsocc papers
 \iffalse
     \makeatletter
     \def\ps@IEEEtitlepagestyle{%
@@ -256,7 +262,7 @@
     \makeatother
     \def\mycopyrightnotice{%
       \begin{minipage}{\textwidth}
-        \footnotesize 
+        \footnotesize
         1551-3203 \copyright 2015 IEEE.
         Personal use is permitted, but republication/redistribution requires IEEE permission.
         \\

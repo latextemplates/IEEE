@@ -2,8 +2,8 @@
 *.bak?
 
 #The output should not be versioned
-paper.pdf
-paper-compsocconf.pdf
+paper*.pdf
+
 
 
 

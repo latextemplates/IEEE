@@ -7,8 +7,8 @@ However, de-facto configurations (hyperref) and modern features of latex (microt
 This page does it.
 
 This template is for the computer science conferences.
-It is based on `bare_conf_compsoc.tex` distributed by IEEE.
-In case you need other configurations, please adapt `paper.tex`.
+It is based on the `bare_conf_compsoc.tex` distributed by IEEE.
+In case you need other configurations, please adapt `paper-conference.tex` or `paper-conference-compsoc.tex`.
 
 ## TOC
 
@@ -28,7 +28,7 @@ In case you need other configurations, please adapt `paper.tex`.
 
 ## Features
 
- * Provides skeletal [paper.tex](paper.tex) and [paper-compsocconf.tex](paper-compsocconf.tex) files.
+ * Provides skeletal [paper-conference.tex](paper-conference.tex) and [paper-conference-compsoc.tex](paper-conference-compsoc.tex) files.
  * Generated PDF allows for copy and paste of text without getting words with ligatures such as "workflow" destroyed.
    This is enabled by the [cmap] package, which encodes ligatures (such as fl) using unicode characters.
  * Support of hyperlinked references without extra color thanx to [hyperref].
@@ -43,18 +43,18 @@ In case you need other configurations, please adapt `paper.tex`.
 
 Examples:
 
-- [paper.pdf](https://latextemplates.github.io/IEEE/paper.pdf) - regular paper.
-- [paper-minted.pdf](https://latextemplates.github.io/IEEE/paper-minted.pdf) - paper showing minted in action.
-- [paper-compsocconf.pdf](https://latextemplates.github.io/IEEE/paper.pdf) - papers for IEEE Computer Society conference papers.
-- [paper-compsocconf-minted.pdf](https://latextemplates.github.io/IEEE/paper-minted.pdf) - paper for IEEE Computer Society conference papers showing minted in action.
+- [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) - regular conference paper.
+- [paper-conference-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-minted.pdf) - conference paper showing minted in action.
+- [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf) - papers for IEEE Computer Society conference papers.
+- [paper-conference-compsoc-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc-minted.pdf) - paper for IEEE Computer Society conference papers showing minted in action.
 
 ## Quick start
 
  * Click on `Download ZIP` or [here](https://github.com/latextemplates/IEEE/archive/master.zip).
  * Extract `master.zip` in the folder where you want to write your paper.
- * In case you are working in the computer science field: Edit [paper-compsocconf.tex](paper-compsocconf.tex).
- * In case you are NOT working in the computer science field: Edit [paper.tex](paper.tex).
- * `latexmk paper-compsocconf` OR `latexmk paper`.
+ * In case you are working in the computer science field: Edit [paper-conference-compsoc.tex](paper-conference-compsoc.tex).
+ * In case you are NOT working in the computer science field: Edit [paper-conference.tex](paper-conference.tex).
+ * `latexmk paper-conference-compsoc` OR `latexmk paper-conference`.
 
 ## Tool hints
 
