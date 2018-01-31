@@ -17,6 +17,37 @@ Examples:
 - [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf) - papers for IEEE Computer Society conference papers.
 - [paper-conference-compsoc-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc-minted.pdf) - paper for IEEE Computer Society conference papers showing minted in action.
 
+
+## Attention
+Some conferences distribute a `IEEEtran.cls` V1.7a dated 2007 and a paramter `compsocconf`.
+
+The most recent version is V1.8b and automatically distributed over CTAN, because it is actively maintained by Michael Shell at <http://www.michaelshell.org/tex/ieeetran/>.
+A full changelog is available at <http://mirror.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/changelog.txt>.
+
+```
+ 2014/09/17 V1.8a (MDS) changes:
+
+ 1) Extensive rework of the compsoc mode to comply with the latest standards
+    of the IEEE Computer Society.
+```
+
+The class parameter `compsocconf` never existed, one has to use `conference, compsoc`.
+Note the missing `conf` at the end.
+With a modern IEEEtran.cls, you'll get
+
+```
+LaTeX Warning: Unused global option(s):
+    [compsocconf].
+```
+
+Instead of [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf), you get [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf).
+That differs significantly in the style used for section headings.
+
+All in all, that distributions are roughly equivalent to `\documentclass[conference]{IEEEtran}`, which **does not comply** with IEEE's rules for computer science conferences.
+
+**Double check with your conference whether you have to use `compsoc` or not.**
+
+
 ## TOC
 
 <!-- toc -->
@@ -27,6 +58,7 @@ Examples:
 - [Using the template with your git repository](#using-the-template-with-your-git-repository)
 - [FAQ](#faq)
   * [Q: I get the error `! pdfTeX error (font expansion): auto expansion is only possible with scalable fonts.`](#q-i-get-the-error---pdftex-error-font-expansion-auto-expansion-is-only-possible-with-scalable-fonts)
+  * [Q: I have questions on the IEEEtran class itself.](#q-i-have-questions-on-the-ieeetran-class-itself)
   * [Q: How can I reformat my .tex files?](#q-how-can-i-reformat-my-tex-files)
   * [Q: How I want to obey the one-sentence-per-line rule.](#q-how-i-want-to-obey-the-one-sentence-per-line-rule)
 - [Links](#links)
@@ -91,6 +123,12 @@ Notes on syncing with the upstream repository [are available from GitHub](https:
 ### Q: I get the error  `! pdfTeX error (font expansion): auto expansion is only possible with scalable fonts.`
 
 Install the `cm-super` package using the MiKTeX package manager. Then, run `initexmf --mkmaps` on the command line. (Long description: http://tex.stackexchange.com/a/324972/9075)
+
+
+### Q: I have questions on the IEEEtran class itself.
+
+The author of the class offers a large FAQ at <http://www.michaelshell.org/tex/ieeetran/>.
+Please read on there.
 
 
 ### Q: How can I reformat my .tex files?
