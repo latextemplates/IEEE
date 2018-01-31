@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Added
 - One more lipsum paragraph on first page and separate Lorem Ipsum section.
+- Enforce version V1.8b (2015/08/26) of [IEEEtrans.cls](http://www.michaelshell.org/tex/ieeetran/).
 
 ### Changed
 - Removed `tracking=smallcaps` option in microtype to have letters in `\textsc{BPMN}` standing closer together.
