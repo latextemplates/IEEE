@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- One more lipsum paragraph on first page and separate Lorem Ipsum section.
+
 ### Changed
 - Removed `tracking=smallcaps` option in microtype to have letters in `\textsc{BPMN}` standing closer together.
 
