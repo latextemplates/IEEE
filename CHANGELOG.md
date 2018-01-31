@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Fixed
+- Title of `paper-conference.tex` does not show "Computer Society" any more.
+
 ### Added
 - One more lipsum paragraph on first page and separate Lorem Ipsum section.
 
