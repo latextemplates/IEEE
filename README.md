@@ -19,7 +19,7 @@ Examples:
 
 
 ## Attention
-Some conferences distribute a `IEEEtran.cls` V1.7a dated 2007 and a paramter `compsocconf`.
+Some conferences distribute a `IEEEtran.cls` V1.7a dated 2007 and a parameter `compsocconf`.
 
 The most recent version is V1.8b and automatically distributed over CTAN, because it is actively maintained by Michael Shell at <http://www.michaelshell.org/tex/ieeetran/>.
 A full changelog is available at <http://mirror.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/changelog.txt>.
@@ -31,7 +31,7 @@ A full changelog is available at <http://mirror.ctan.org/tex-archive/macros/late
     of the IEEE Computer Society.
 ```
 
-The class parameter `compsocconf` never existed, one has to use `conference, compsoc`.
+The class parameter `compsocconf` does not exist in version V1.8 any more, one has to use `conference, compsoc`.
 Note the missing `conf` at the end.
 With a modern IEEEtran.cls, you'll get
 
@@ -40,10 +40,10 @@ LaTeX Warning: Unused global option(s):
     [compsocconf].
 ```
 
-Instead of [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf), you get [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf).
+When using the 2007 version or the most recent version with `compsocconf`, you'll get [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) instead of [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf).
 That differs significantly in the style used for section headings.
 
-All in all, that distributions are roughly equivalent to `\documentclass[conference]{IEEEtran}`, which **does not comply** with IEEE's rules for computer science conferences.
+All in all, that distributions are roughly equivalent to `\documentclass[conference]{IEEEtran}` (and version V1.8b), which **does not comply** with IEEE's rules for computer science conferences.
 
 **Double check with your conference whether you have to use `compsoc` or not.**
 
