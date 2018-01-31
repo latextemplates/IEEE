@@ -44,11 +44,12 @@ When using the 2007 version or the most recent version with `compsocconf`, you'l
 That differs significantly in the style used for section headings.
 
 IEEE distributes their templates at <https://www.ieee.org/conferences_events/conferences/publishing/templates.html>.
-With the update of July 2017, the archive <https://www.ieee.org/documents/ieee-latex-conference-template.zip> contains a `bare_conf_compsoc.tex` with `\documentclass[conference,compsoc]{IEEEtran}`, which **always** activates the `compsoc` option.
+With the update of July 2017, the archive <https://www.ieee.org/documents/ieee-latex-conference-template.zip> contains both `bare_conf.tex` and `bare_conf_compsoc.tex`.
+Thus, the conference should state which option to use.
 
 All in all, the distributions of IEEEtran from 2007 are roughly equivalent to `\documentclass[conference]{IEEEtran}` (and version V1.8b), which **does not comply** with IEEE's rules for computer science conferences, because the `compsoc` option is missing.
 
-**Double check with your conference whether you have to use `compsoc` or not.**
+Hence, **double check with your conference whether you have to use `compsoc` or not.**
 
 
 ## TOC
