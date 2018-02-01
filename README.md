@@ -20,6 +20,7 @@ Examples:
 
 ## Attention
 Some conferences distribute a `IEEEtran.cls` V1.7a dated 2007 and a parameter `compsocconf`.
+**The parameter `compsocconf` was NEVER included in Michael Shell's IEEEtran.cls file. It is unclear, who did this patch and why it is around in the wild.**
 
 The most recent version is V1.8b and automatically distributed over CTAN, because it is actively maintained by Michael Shell at <http://www.michaelshell.org/tex/ieeetran/>.
 A full changelog is available at <http://mirror.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/changelog.txt>.
@@ -31,8 +32,8 @@ A full changelog is available at <http://mirror.ctan.org/tex-archive/macros/late
     of the IEEE Computer Society.
 ```
 
-The class parameter `compsocconf` does not exist in version V1.8 any more, one has to use `conference, compsoc`.
-Note the missing `conf` at the end.
+The class parameter `compsocconf` never existed offifially.
+One has to use `conference, compsoc`, because the parameters are "orthogonal": Either "conference" or "journal", either "compsoc" or not.
 With a modern IEEEtran.cls, you'll get
 
 ```
@@ -40,7 +41,7 @@ LaTeX Warning: Unused global option(s):
     [compsocconf].
 ```
 
-When using the 2007 version or the most recent version with `compsocconf`, you'll get [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) instead of [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf).
+When using the 2007 version or the most recent version with (the unhandled) `compsocconf`, you'll get [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) instead of [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf).
 That differs significantly in the style used for section headings.
 
 IEEE distributes their templates at <https://www.ieee.org/conferences_events/conferences/publishing/templates.html>.
