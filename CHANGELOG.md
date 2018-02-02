@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 - Removed `tracking=smallcaps` option in microtype to have letters in `\textsc{BPMN}` standing closer together.
+- Instead of package [cite](https://www.ctan.org/pkg/cite) the more comprehensive package [natbib](https://www.ctan.org/pkg/natbib) is used. Thereby, `\citet{ref}` is enabled.
 
 ### Removed
 - Removed wrong `\allowbreak{}` example.

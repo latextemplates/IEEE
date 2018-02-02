@@ -103,6 +103,43 @@
 % Compatiblity with package fixmetodonotes
 \newcommand{\TODO}[1]{\commentatside{#1}}
 
+% Bibliopgraphy enhancements
+%  - enable \cite[prenote][]{ref}
+%  - enable \cite{ref1,ref2}
+% Alternative: \usepackage{cite}, which enables \cite{ref1, ref2} only (otherwise: Error message: "White space in argument")
+%
+% Doc: http://texdoc.net/natbib
+\ifCLASSOPTIONcompsoc
+  % IEEE Computer Society needs nocompress option at cite.sty
+  % natbib includes the same functionality
+  \usepackage[%
+    square,        % for square brackets
+    comma,         % use commas as separators
+    numbers,       % for numerical citations;
+    sort           % orders multiple citations into the sequence in which they appear in the list of references;
+    %sort&compress % as sort but in addition multiple numerical citations
+                   % are compressed if possible (as 3-6, 15);
+  ]{natbib}
+\else
+  % normal IEEE
+  \usepackage[%
+    square,        % for square brackets
+    comma,         % use commas as separators
+    numbers,       % for numerical citations;
+    %sort           % orders multiple citations into the sequence in which they appear in the list of references;
+    sort&compress % as sort but in addition multiple numerical citations
+                   % are compressed if possible (as 3-6, 15);
+  ]{natbib}
+\fi
+% Same fontsize as without natbib
+\renewcommand{\bibfont}{\normalfont\footnotesize}
+% Enable hyperlinked author names in the case of \citet
+% Source: https://tex.stackexchange.com/a/76075/9075
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\NAT@test}{\else \NAT@nm}{\else \NAT@hyper@{\NAT@nm}}{}{}
+\makeatother
+
 % Enable that parameters of \cref{}, \ref{}, \cite{}, ... are linked so that a reader can click on the number an jump to the target in the document
 \usepackage{hyperref}
 % Enable hyperref without colors and without bookmarks
@@ -188,17 +225,6 @@
   <12->   MnSymbolC12%
 }{}
 \DeclareMathSymbol{\powerset}{\mathord}{MnSyC}{180}
-
-%% Packages proposed by IEEEtran
-
-\ifCLASSOPTIONcompsoc
-  % IEEE Computer Society needs nocompress option
-  % requires cite.sty v4.0 or later (November 2003)
-  \usepackage[nocompress]{cite}
-\else
-  % normal IEEE
-  \usepackage{cite}
-\fi
 
 % *** SUBFIGURE PACKAGES ***
 \ifCLASSOPTIONcompsoc
@@ -304,7 +330,8 @@ Finally, a conclusion is drawn and outlook on future work is made (\cref{sec:out
 \section{Related Work}
 \label{sec:relatedwork}
 
-Winery~\cite{Winery} is graphical \commentontext{modeling}{modeling with one \enquote{l}, because of AE} tool.
+Winery~\cite{Winery} is a graphical \commentontext{modeling}{modeling with one \enquote{l}, because of AE} tool.
+The whole idea of TOSCA is explained by \citet{Binz2009}.
 
 \blindtext[5]
 
@@ -448,10 +475,11 @@ See \url{https://help.jabref.org/en/CleanupEntries} for an overview of the clean
 % The "triggered" command can be changed if desired:
 %\IEEEtriggercmd{\enlargethispage{-5in}}
 
-\bibliographystyle{IEEEtran}
+\bibliographystyle{IEEEtranN} % IEEEtranN is the natbib compatible bst file
 % argument is your BibTeX string definitions and bibliography database(s)
 \bibliography{paper}
 
-%All links were followed on April 18, 2018.
+\ \\ % empty line after bibliogpraphy and that statement
+All links were followed on April 18, 2018.
 
 \end{document}
