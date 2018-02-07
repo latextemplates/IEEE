@@ -32,7 +32,7 @@ A full changelog is available at <http://mirror.ctan.org/tex-archive/macros/late
     of the IEEE Computer Society.
 ```
 
-The class parameter `compsocconf` never existed offifially.
+The class parameter `compsocconf` never existed officially.
 One has to use `conference, compsoc`, because the parameters are "orthogonal": Either "conference" or "journal", either "compsoc" or not.
 With a modern IEEEtran.cls, you'll get
 
@@ -51,6 +51,10 @@ Thus, the conference should state which option to use.
 All in all, the distributions of IEEEtran from 2007 are roughly equivalent to `\documentclass[conference]{IEEEtran}` (and version V1.8b), which **does not comply** with IEEE's rules for computer science conferences, because the `compsoc` option is missing.
 
 Hence, **double check with your conference whether you have to use `compsoc` or not.**
+
+Statement from IEEE:
+
+> Please note that, as stated on the webpage <https://www.ieee.org/conferences_events/conferences/publishing/templates.html>. "IEEE does not require a specific format for their conference articles". Thus, we dot not purport that the "compsoc" is a requirement for publishing conference papers with us.
 
 
 ## TOC
