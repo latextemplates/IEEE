@@ -6,8 +6,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
 ### Added
 - Added optional tweak to reduce spacing between bibitems
+- Added `crefname` for `lstlisting` to ensure cleveref works
 
 ## [1.2.0] - 2018-02-07
 
