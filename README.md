@@ -15,7 +15,6 @@ Examples:
 - [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) - regular conference paper.
 - [paper-conference-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-minted.pdf) - conference paper showing minted in action.
 - [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf) - papers for IEEE Computer Society conference papers.
-- [paper-conference-compsoc-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc-minted.pdf) - paper for IEEE Computer Society conference papers showing minted in action.
 
 
 ## Attention
@@ -86,7 +85,7 @@ Statement from IEEE:
  * [microtypographic extensions](https://www.ctan.org/pkg/microtype) for a better look of the paper.
  * Adds modern packages such as [microtype], [cleveref], [csquotes], [booktabs], [paralist], [hyperref], [hypcap], [upquote].
  * Shows how IEEE copyright notice can be added.
- * Optional: Support for [minted] package. Uncomment `\usepackage[newfloat]{minted}` to get started.
+ * Optional: Support for [minted] package. Prepared in `paper-conference-minted.tex`.
  * Ready-to-go configuration for [latexindent].
 
 ## Quick start

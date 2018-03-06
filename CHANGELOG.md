@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added optional tweak to reduce spacing between bibitems
 - Added `crefname` for `lstlisting` to ensure cleveref works
 
+### Changed
+- Separated minted support to separate file `paper-conference-minted.tex`.
+
 ## [1.2.0] - 2018-02-07
 
 ### Changed

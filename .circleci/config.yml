@@ -5,14 +5,10 @@ jobs:
        - image: koppor/texlive
      steps:
        - checkout
-       - run: latexmk paper-conference.tex && mv paper-conference.pdf paper-conference-nonminted.pdf
-       - run: latexmk paper-conference-compsoc.tex && mv paper-conference-compsoc.pdf paper-conference-compsoc-nonminted.pdf
-       # activate use of minted package in paper.tex -- it is disabled as default
-       - run: sed -i "s/%\(\\\\usepackage.*{minted}\)/\1/" paper-conference.tex
-       - run: latexmk paper-conference.tex && mv paper-conference.pdf paper-conference-minted.pdf
-       - run: sed -i "s/%\(\\\\usepackage.*{minted}\)/\1/" paper-conference-compsoc.tex
-       - run: latexmk paper-conference-compsoc.tex && mv paper-conference-compsoc.pdf paper-conference-compsoc-minted.pdf
-       - run: mv paper-conference-nonminted.pdf paper-conference.pdf && mv paper-conference-compsoc-nonminted.pdf paper-conference-compsoc.pdf && mkdir build && cp -r README.md paper*.pdf .github/_config.yml build/
+       - run: latexmk paper-conference.tex
+       - run: latexmk paper-conference-minted.tex
+       - run: latexmk paper-conference-compsoc.tex
+       - run: mkdir build && cp -r README.md paper*.pdf .github/_config.yml build/
        - store_artifacts:
            path: build/
        - run: if [ "$CIRCLE_BRANCH" == "master" ]; then .circleci/deploy-ghpages.sh build/; fi
