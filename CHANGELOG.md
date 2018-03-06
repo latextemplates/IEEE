@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+- Added "aboveskip" and "belowskip" hints.
+- Added example Java listing using minted.
+- Added example XML listing using listings.
+
 ## [1.3.0] - 2018-03-06
 
 ### Added

@@ -285,14 +285,34 @@ The whole idea of TOSCA is explained by \citet{Binz2009}.
 \section{LaTeX Hints}
 \label{sec:hints}
 
-\Cref{L1} shows a listing typeset using the \texttt{lstlisting} environment.
+\Cref{L1,L2} show listings typeset using the \texttt{lstlisting} environment.
 
-\begin{lstlisting}[caption={Example Listing}, label=L1, language=Java, float]
+\begin{lstlisting}[
+  % one can adjust spacing here if required
+  % aboveskip=2.5\baselineskip,
+  % belowskip=-.8\baselineskip,
+  caption={Example Java Listing},
+  label=L2,
+  language=Java,
+  float]
 public class Hello {
     public static void main (String[] args) {
         System.out.println("Hello World!");
     }
 }
+\end{lstlisting}
+
+\begin{lstlisting}[
+  % one can adjust spacing here if required
+  % aboveskip=2.5\baselineskip,
+  % belowskip=-.8\baselineskip,
+  caption={Example XML Listing},
+  label=L2,
+  language=XML,
+  float]
+<example attr="demo">
+  text content
+</example>
 \end{lstlisting}
 
 \begin{figure}
