@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added `crefname` for `lstlisting` to ensure cleveref works
 
 ### Changed
+- Removed `chngcntr`, because lsitings package counts right in the case of IEEE.
 - Separated minted support to separate file `paper-conference-minted.tex`.
 
 ## [1.2.0] - 2018-02-07
