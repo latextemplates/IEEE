@@ -12,6 +12,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - Added example Java listing using minted.
 - Added example XML listing using listings.
 
+### Changed
+- Changed minted style from friendly to bw.
+
 ## [1.3.0] - 2018-03-06
 
 ### Added
