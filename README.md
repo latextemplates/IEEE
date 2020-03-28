@@ -1,4 +1,4 @@
-# Simplified IEEE Template [![Build Status](https://circleci.com/gh/latextemplates/IEEE/tree/master.svg?style=shield)](https://circleci.com/gh/latextemplates/IEEE/)
+# Simplified IEEE Template ![Build and publish to gh-pages](https://github.com/latextemplates/IEEE/workflows/Build%20and%20publish%20to%20gh-pages/badge.svg)
 
 > Quick start for modern LaTeXing for an IEEE conference, based on the [Manuscript Template for Conference Proceedings](https://www.ieee.org/conferences_events/conferences/publishing/templates.html).
 
