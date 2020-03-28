@@ -1,0 +1,32 @@
+name: Build with lualatex
+on: [push, pull_request]
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v1
+      - name: Compile paper-conference.tex
+        uses: dante-ev/latex-action@master
+        with:
+          root_file: paper-conference.tex
+          compiler: lualatex
+          args:
+      - name: Compile paper-conference-minted.tex
+        uses: dante-ev/latex-action@master
+        with:
+          root_file: paper-conference-minted.tex
+          compiler: lualatex
+          args: -shell-escape
+      - name: Compile paper-conference-minted.tex
+        uses: dante-ev/latex-action@master
+        with:
+          root_file: paper-conference-minted.tex
+          compiler: lualatex
+        args:
+      - name: Compile paper-conference-compsoc.tex
+        uses: dante-ev/latex-action@master
+        with:
+          root_file: paper-conference-compsoc.tex
+          compiler: lualatex
+        args:
