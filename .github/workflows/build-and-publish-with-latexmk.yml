@@ -25,7 +25,7 @@ jobs:
           root_file: paper-conference-compsoc.tex
           args:
       - name: Gather build artifacts
-        run: mkdir build && cp -r paper-*.pdf .github/_config.yml build/
+        run: mkdir build && cp -r README.md paper-*.pdf .github/_config.yml build/
       - name: Deploy
         if: success()
         uses: crazy-max/ghaction-github-pages@master
