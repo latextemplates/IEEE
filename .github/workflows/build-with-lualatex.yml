@@ -24,3 +24,9 @@ jobs:
           root_file: paper-conference-compsoc.tex
           compiler: lualatex
           args:
+      - name: Compile paper-9pt-technote.tex
+        uses: dante-ev/latex-action@master
+        with:
+          root_file: paper-9pt-technote.tex
+          compiler: lualatex
+          args:
