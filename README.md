@@ -15,6 +15,7 @@ Examples:
 - [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) - regular conference paper.
 - [paper-conference-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-minted.pdf) - conference paper showing minted in action.
 - [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf) - papers for IEEE Computer Society conference papers.
+- [paper-9pt-technote.pdf](https://latextemplates.github.io/IEEE/paper-9pt-technote.pdf) - technical notes with font size 9pt.
 
 ## Attention
 
