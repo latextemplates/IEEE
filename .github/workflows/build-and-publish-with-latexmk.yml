@@ -33,7 +33,7 @@ jobs:
         run: mkdir build && cp -r README.md paper-*.pdf .github/_config.yml build/
       - name: Deploy
         if: success()
-        uses: crazy-max/ghaction-github-pages@master
+        uses: crazy-max/ghaction-github-pages@v2
         with:
           target_branch: gh-pages
           build_dir: build
