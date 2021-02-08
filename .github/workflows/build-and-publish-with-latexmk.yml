@@ -24,6 +24,11 @@ jobs:
         with:
           root_file: paper-conference-compsoc.tex
           args:
+      - name: Compile paper-9pt-technote.tex
+        uses: dante-ev/latex-action@master
+        with:
+          root_file: paper-9pt-technote.tex
+          args:
       - name: Gather build artifacts
         run: mkdir build && cp -r README.md paper-*.pdf .github/_config.yml build/
       - name: Deploy
