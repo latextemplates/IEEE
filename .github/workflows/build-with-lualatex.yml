@@ -1,5 +1,5 @@
 name: Build with lualatex
-on: [push, pull_request]
+on: [push, pull_request, workflow_dispatch]
 jobs:
   build_latex:
     runs-on: ubuntu-latest
@@ -24,3 +24,17 @@ jobs:
           root_file: paper-conference-compsoc.tex
           compiler: lualatex
           args:
+      - name: Compile paper-9pt-technote.tex
+        uses: dante-ev/latex-action@master
+        with:
+          root_file: paper-9pt-technote.tex
+          compiler: lualatex
+          args:
+      - name: Gather build artifacts
+        run: mkdir build && cp -r paper-*.pdf build/
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: lualatex
+          path: build/
+          retention-days: 5
