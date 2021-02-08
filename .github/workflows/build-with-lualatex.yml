@@ -30,3 +30,11 @@ jobs:
           root_file: paper-9pt-technote.tex
           compiler: lualatex
           args:
+      - name: Gather build artifacts
+        run: mkdir build && cp -r paper-*.pdf build/
+      - name: 'Upload Artifact'
+        uses: actions/upload-artifact@v2
+        with:
+          name: lualatex
+          path: build/
+          retention-days: 5
