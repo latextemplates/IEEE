@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Added package [pbalance](https://ctan.org/pkg/pbalance) to automatically balance the last two columns
+
 ## [1.5.0] – 2020-03-29
 
 ### Fixed
