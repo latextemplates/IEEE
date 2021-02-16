@@ -1,0 +1,672 @@
+%%
+%% This is file `pbalance.sty',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% pbalance.dtx  (with options: `package')
+%% Copyright 2020 Nelson Lago <lago@ime.usp.br>
+%% 
+%% This work may be distributed and/or modified under the conditions of the
+%% LaTeX Project Public License, either version 1.3 of this license or (at
+%% your option) any later version. The latest version of this license can be
+%% found at http://www.latex-project.org/lppl.txt and version 1.3 or later
+%% is part of all distributions of LaTeX version 2005/12/01 or later.
+%% 
+%% This work has the LPPL maintenance status `maintained'.
+%% 
+%% The Current Maintainer of this work is Nelson Lago <lago@ime.usp.br>.
+%% 
+\NeedsTeXFormat{LaTeX2e}[2015/01/01]
+\ProvidesPackage{pbalance}[2020/12/16 v1.0.1 Poor man's balance]
+
+\RequirePackage{etoolbox}
+\RequirePackage{expl3}
+\RequirePackage{atbegshi} % Manipulate the page output routine
+\RequirePackage{atveryend} % Write to the aux file after processing ends
+\RequirePackage{zref-abspage} % Figure out the current page
+
+\AtEndOfPackage{\RequirePackage{balance}}
+
+\gdef \@reinserts{%
+  \ifvbox\@kludgeins\insert\@kludgeins
+                      {\unvbox\@kludgeins}\fi
+  \ifvoid\footins\else\insert\footins{\unvbox\footins}\fi
+}
+
+\providetoggle{@PBstabilized}
+\providetoggle{@PBimpossible}
+
+\newtoggle{@PBdraft}
+\DeclareOption{draft}{\toggletrue{@PBdraft}}
+\ProcessOptions\relax
+
+
+
+\AtBeginDocument{
+  \@PBifShouldBalanceNascentPage
+    {\@PBStartBalancing}
+    {}
+}
+
+\AtBeginShipout{
+  \@PBifShouldBalanceNascentPage
+    {\@PBStartBalancing}
+    {}
+}
+
+\newcommand\@PBifShouldBalanceNascentPage[2]{
+  \ifboolexpr
+    {
+      togl {@PBdraft}
+      or not togl {@PBstabilized}
+      or test {\ifdefvoid{\@PBprevLastPage}}
+    }
+    {#2}
+    {
+      % abspage refers to the finished page, not the nascent page
+      \ifnumcomp{\@PBprevLastPage - 1}{=}{\value{abspage}}
+        {#1}
+        {#2}
+    }
+}
+
+\newcommand\shrinkLastPage[1]{\dimgdef\@PBslack{#1}}
+
+\newcommand\@PBStartBalancing{
+  \ifdefvoid{\@PBslack}
+    {\@PBautomaticBalance}
+    {\@PBshrinkPage}
+}
+
+\newcommand\@PBautomaticBalance{
+  \@PBifBalancePossible
+    {
+      \@PBifBalancePkgPossible
+        {\balance} % easy peasy, use the balance package
+        {
+          \@PBifPoorBalancePossible
+            {
+              % use the poor man's balance algorithm
+              \@PBcalculateShrinkage
+              \@PBshrinkPage
+            }
+            {}
+        }
+    }
+    {}
+}
+
+\newcommand\@PBcalculateShrinkage{
+
+  % Let's use some shorter names, please
+  \dimdef\@PBtmpH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}Height}}
+  \dimdef\@PBtmpUL{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}UsedLeft}}
+  \dimdef\@PBtmpUR{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}UsedRight}}
+
+  \dimdef\@PBtmpLH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}LeftHeight}}
+  \dimdef\@PBtmpLFH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}LeftFloatsHeight}}
+  \dimdef\@PBtmpRH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}RightHeight}}
+  \dimdef\@PBtmpRFH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}RightFloatsHeight}}
+
+  % Figure out the amount of unused space on the last page (both
+  % cols); we will reduce the first column height by half that amount
+  \dimgdef\@PBslack{2\dimexpr\@PBtmpH\relax - \@PBtmpUL - \@PBtmpUR}
+  \dimgdef\@PBslack{.5\dimexpr\@PBslack\relax}
+
+  % Actually, I lied. While half, as said above, sometimes yields
+  % perfectly balanced columns, that is often not the case (the page
+  % may have an odd number of lines, or textheight may not be a
+  % multiple of baselineskip, or there may be glues etc.). Sometimes
+  % the difference is very small, less than a line, which does not
+  % look good at all, and sometimes the right column is slightly
+  % higher than the left, which is also not ideal. Here, we force
+  % the left column to always be somewhat taller than the left; the
+  % result is often ``better''.
+  \dimgdef\@PBslack{\@PBslack - 1.5\baselineskip}
+
+  % If necessary, reduce @PBslack to prevent LaTeX from adding a page
+  \@PBsafetyCheck
+}
+
+\def\@PBshrinkPage{
+  % Zero obviously means ``do nothing''. We could
+  % ``enlarge'' by 0, but IDK, maybe that would
+  % trigger another LaTeX pass or something.
+  \ifdimcomp{\@PBslack}{=}{0pt}
+    {}
+    {
+      % Shrink the first column
+      \enlargethispage{-\@PBslack}
+
+      % Modify the behavior of \@outputdblcol
+      % to raise footnotes in the second column.
+      \global\let\@PBbalanceSecondColumn\@PBrealBalanceSecondColumn
+    }
+}
+
+\pretocmd{\@outputdblcol}{\@PBbalanceSecondColumn}{}{}
+
+\let\@PBbalanceSecondColumn\relax
+
+\def\@PBrealBalanceSecondColumn{
+    \if@firstcolumn
+      % Affects the next column
+      \global\let\@PBorigtextbottom\@textbottom
+      \gdef\@textbottom{\vskip \@PBslack plus .0001fil minus 10000fill\relax \@PBorigtextbottom}
+    \else
+      % Back to normal before starting the next page
+      \global\let\@textbottom\@PBorigtextbottom
+      \global\let\@PBbalanceSecondColumn\relax
+    \fi
+}
+
+
+
+\newcommand\@PBifmidfloat[2]{\ifx\@midlist\empty #2\else #1\fi}
+\newcommand\@PBiftopfloat[2]{\ifx\@toplist\empty #2\else #1\fi}
+\newcommand\@PBifbotfloat[2]{\ifx\@botlist\empty #2\else #1\fi}
+\newcommand\@PBiffootnote[2]{\ifvoid\footins #2\else #1\fi}
+\newcommand\@PBiffloatcol[2]{\if@fcolmade #1\else #2\fi}
+%%%\newcommand\@PBifdbltopfloat[2]{\ifx\@dbltoplist\empty #2\else #1\fi}
+\newcommand\@PBifdblbotfloat[2]{%
+  \ifdefvoid{\@dblbotlist}
+    {#2}
+    {\ifx\@dblbotlist\empty #2\else #1\fi}%
+}
+
+\newtoggle{@PBtmpHasFootnotes}
+\newtoggle{@PBtmpHasFloats}
+\newtoggle{@PBtmpHasMarginpars}
+
+\def\@PBcollectPageInfo{
+
+  \ifboolexpr
+    {
+      test {\@PBifmidfloat} or test {\@PBiftopfloat} or
+      test {\@PBifbotfloat} or test {\@PBifdblbotfloat}
+    }
+    {\global\toggletrue{@PBtmpHasFloats}}
+    {}
+
+  \@PBiffootnote
+    {\global\toggletrue{@PBtmpHasFootnotes}}
+    {}
+}
+
+\pretocmd{\@makecol}{\@PBcollectPageInfo}{}{}
+
+\pretocmd{\@addmarginpar}{\global\toggletrue{@PBtmpHasMarginpars}}{}{}
+
+
+\ExplSyntaxOn
+\seq_gclear_new:N \@PBtmpLeftFloatHeights
+\seq_gclear_new:N \@PBtmpLeftFloatSpacesBelow
+\def\@PBcollectFloatHeights{
+  \if@firstcolumn
+    \dimdef\@PBfloatHeight{\@textfloatsheight - \@PBtmpHeightBefore}
+    \ifdimcomp{\@PBfloatHeight}{>}{0pt}
+      {
+        \global\seq_put_right:NV \@PBtmpLeftFloatHeights \@PBfloatHeight
+
+        \dimdef\@PBspaceBelow{\@colroom - \@pageht - \@PBfloatHeight}
+        % within \@addtocurcol, \@pageht corresponds to all
+        % currently used space in the column, including footnotes
+        % (check \@specialoutput in the LaTeX kernel). Let's
+        % exclude the footnotes, we only want the space below
+        % the float.
+        \ifvoid\footins\else
+          \dimdef\@PBspaceBelow{\@PBspaceBelow + \ht\footins + \skip\footins + \dp\footins}
+        \fi
+
+        % No idea why, but this can happen; maybe because of the page depth?
+        \ifdimcomp{\@PBspaceBelow}{<}{0pt}
+          {\dimdef\@PBspaceBelow{0pt}}
+          {}
+
+        \global\seq_put_right:NV \@PBtmpLeftFloatSpacesBelow \@PBspaceBelow
+      }
+      {}
+  \fi
+}
+\ExplSyntaxOff
+
+\pretocmd{\@addtocurcol}{\dimgdef{\@PBtmpHeightBefore}{\@textfloatsheight}}{}{}
+\apptocmd{\@addtocurcol}{\@PBcollectFloatHeights}{}{}
+
+
+\newtoggle{@PBtmpHasFloatcol}
+\newtoggle{@PBtmpIsFloatPage}
+
+\newcommand\@PBcollectColumnInfo{
+
+  \if@firstcolumn
+
+    \@PBiffloatcol
+      {\global\toggletrue{@PBtmpHasFloatcol}}
+      {}
+
+    % Available vertical space excluding
+    % dblfloats; the same for both columns
+    \dimgdef\@PBtmpHeight{\@colht}
+
+    % Available vertical space excluding top/bottom floats
+    \dimgdef\@PBtmpLeftHeight{\@colroom}
+
+    % Space used by \texttt{here} floats
+    \dimgdef\@PBtmpLeftFloatsHeight{\@textfloatsheight}
+
+  \else
+
+    \@PBiffloatcol
+      {
+        \iftoggle{@PBtmpHasFloatcol}
+          {\global\toggletrue{@PBtmpIsFloatPage}}
+          {\global\toggletrue{@PBtmpHasFloatcol}}
+      }
+      {}
+
+    \dimgdef\@PBtmpRightHeight{\@colroom}
+    \dimgdef\@PBtmpRightFloatsHeight{\@textfloatsheight}
+
+    \setbox\@tempboxa=\copy\@leftcolumn
+    \setbox\@tempboxa=\vbox{\unvbox\@tempboxa\unskip\unskip}
+    \dimgdef\@PBtmpUsedLeft{\ht\@tempboxa\relax}
+
+    \setbox\@tempboxa=\copy\@outputbox
+    \setbox\@tempboxa=\vbox{\unvbox\@tempboxa\unskip\unskip}
+    \dimgdef\@PBtmpUsedRight{\ht\@tempboxa\relax}
+  \fi
+}
+
+\pretocmd{\@outputdblcol}{\@PBcollectColumnInfo}{}{}
+
+\AtEndOfPackage{
+  \pretocmd{\@BAdblcol}{\@PBcollectColumnInfo}{}{}
+  % Revert \balance before next page if it exists (it might be a float page)
+  \patchcmd{\@BAdblcol}{\endgroup}{\endgroup\nobalance}{}{}
+}
+
+
+\ExplSyntaxOn
+\AtBeginShipout{
+  \ifboolexpr
+    {
+      % A float page is not the last text page, ignore
+      togl {@PBtmpIsFloatPage}
+      or
+      % A page with a float column on the left and an empty
+      % column on the right is not the last text page, ignore
+      (
+        togl {@PBtmpHasFloatcol}
+        and
+        test {\ifdimcomp{\@PBtmpUsedRight}{=}{\topskip}}
+      )
+    }
+    {}
+    {
+      % This page is a candidate to be the last page
+      \xdef\@PBlastPage{\the\value{abspage}}
+      \@PBcopyPageData{tmp}{candidate}
+    }
+
+    % Reset before processing next page
+    \global\togglefalse{@PBtmpHasFloats}
+    \global\togglefalse{@PBtmpHasFloatcol}
+    \global\togglefalse{@PBtmpHasFootnotes}
+    \global\togglefalse{@PBtmpHasMarginpars}
+    \global\togglefalse{@PBtmpIsFloatPage}
+
+    \seq_gclear_new:N \@PBtmpLeftFloatHeights
+    \seq_gclear_new:N \@PBtmpLeftFloatSpacesBelow
+}
+\ExplSyntaxOff
+
+
+\AfterLastShipout{\@PBcopyPageData{candidate}{pg\@Roman{\@PBlastPage}}}
+
+
+\AfterLastShipout{
+  % Reset \@PBimpossible if we are in draft mode,
+  % so the user can start over if they want to.
+  \iftoggle{@PBdraft}{\togglefalse{@PBimpossible}}{}
+
+  \ifboolexpr{togl {@PBdraft} or togl {@PBimpossible}}
+    {}
+    {
+      \ifdefvoid{\@PBprevLastPage}
+        {\@PBsaveUnbalancedInfo\@PBnotifyRerun} % First pass
+        {
+          \iftoggle{@PBstabilized}
+            {\@PBmanageBalancingPasses}
+            {
+              \@PBifSomethingChanged[unbal]
+                % Document still changing; discard data from previous pass
+                {\@PBsaveUnbalancedInfo[update]\@PBnotifyRerun}
+                % No changes, so let's balance from now on (once @PBstabilized
+                % becomes true, it never reverts back to false, unless the aux
+                % file is deleted).
+                {\toggletrue{@PBstabilized}\@PBsaveUnbalancedInfo\@PBnotifyRerun}
+            }
+        }
+      \@PBsaveToggle{@PBstabilized}
+    }
+
+  \@PBsaveToggle{@PBimpossible}
+  \immediate\write\@mainaux{\gdef\string\@PBprevLastPhysPage{\the\value{abspage}}}
+}
+
+\newcommand\@PBmanageBalancingPasses{
+  % This is the second pass or later after we started balancing
+
+  \providetoggle{@PBpg\@Roman{\@PBlastPage}alreadyBalanced}
+
+  \iftoggle{@PBpg\@Roman{\@PBlastPage}alreadyBalanced}
+    {
+      % Third pass or later; document was already
+      % balanced, so there should be no more changes
+      \@PBifSomethingChanged
+        % The document has changed, so we need to measure
+        % stuff again; clear aux file and start over.
+        {\@PBnotifyRerun}
+        % Nothing changed, just write the same info down
+        {\@PBsaveUnbalancedInfo\@PBsaveBalancedInfo}
+    }
+    % Second pass, which means something did change: we have just
+    % balanced the columns for the first time.
+    {
+      \xdef\@tempa{\the\value{abspage}}
+      \ifboolexpr
+        {
+          test {\ifdefstrequal{\@PBprevLastPage}{\@PBlastPage}}
+          and
+          test {\ifdefstrequal{\@PBprevLastPhysPage}{\@tempa}}
+        }
+        % All is well; save the new info
+        {\@PBsaveUnbalancedInfo\@PBsaveBalancedInfo}
+        % Oh, no! As we attempted to balance, we actually changed
+        % the number of pages (maybe we added a float page, maybe
+        % we turned the last float page into a text page etc.). If
+        % we continue, the document might never converge (endless
+        % ``please rerun LaTeX'' messages). Let's give up balancing.
+        {\toggletrue{@PBimpossible}}
+    }
+}
+
+
+\newcommand\@PBifBalancePossible[2]{
+  \iftoggle{@PBunbalpg\@Roman{\@PBprevLastPage}HasFloatcol}
+    {#2}
+    {#1}
+}
+
+\newcommand\@PBifBalancePkgPossible[2]{
+  \ifboolexpr
+    {
+      togl {@PBunbalpg\@Roman{\@PBprevLastPage}HasFloats}
+      or
+      togl {@PBunbalpg\@Roman{\@PBprevLastPage}HasFootnotes}
+      or
+      togl {@PBunbalpg\@Roman{\@PBprevLastPage}HasMarginpars}
+    }
+    {#2}
+    {#1}
+}
+
+
+\newcommand\@PBifPoorBalancePossible[2]{
+
+  % Let's use some shorter names, please
+  \dimdef\@PBtmpH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}Height}}
+  \dimdef\@PBtmpUL{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}UsedLeft}}
+  \dimdef\@PBtmpUR{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}UsedRight}}
+
+  \dimdef\@PBtmpLH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}LeftHeight}}
+  \dimdef\@PBtmpLFH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}LeftFloatsHeight}}
+  \dimdef\@PBtmpRH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}RightHeight}}
+  \dimdef\@PBtmpRFH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}RightFloatsHeight}}
+
+  \ifboolexpr{
+    % Plenty of space on right column, difference is worth it
+    test {\ifdimcomp{\@PBtmpUL}{>}{\@PBtmpUR + 6\baselineskip}}
+    or
+    (
+      test {\ifdimcomp{\@PBtmpUL}{>}{4\baselineskip}}
+      and
+      test {\ifdimcomp{\@PBtmpUR}{=}{\topskip}} % column is empty
+    )
+  }{#1}{#2}
+}
+
+
+
+\ExplSyntaxOn
+\def\@PBsafetyCheck{
+
+  % Let's use some shorter names, please
+  \dimdef\@PBtmpH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}Height}}
+  \dimdef\@PBtmpUL{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}UsedLeft}}
+  \dimdef\@PBtmpUR{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}UsedRight}}
+
+  \dimdef\@PBtmpLH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}LeftHeight}}
+  \dimdef\@PBtmpLFH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}LeftFloatsHeight}}
+  \dimdef\@PBtmpRH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}RightHeight}}
+  \dimdef\@PBtmpRFH{\csuse{@PBunbalpg\@Roman{\@PBprevLastPage}RightFloatsHeight}}
+
+  % Make sure we do not push top/bottom floats out of the left col
+  \dimdef\@PBmaxSlack{\@PBtmpLH}
+
+  \dimdef\@PBtmpdim{0pt}
+
+  % Start from the bottom
+  \numdef{\@PBtmpcnt}{\seq_count:c {@PBunbalpg\@Roman{\@PBprevLastPage}LeftFloatHeights}}
+  \int_while_do:nNnn {\@PBtmpcnt} > {0}
+    {
+
+      \dimdef\@PBcurrentFloatHeight
+        {\seq_item:cn {@PBunbalpg\@Roman{\@PBprevLastPage}LeftFloatHeights} {\@PBtmpcnt}}
+
+      \dimdef\@PBcurrentFloatSpaceBelow
+        {\seq_item:cn {@PBunbalpg\@Roman{\@PBprevLastPage}LeftFloatSpacesBelow} {\@PBtmpcnt}}
+
+      \dimdef{\@PBtmpdim}{\@PBtmpdim + \@PBcurrentFloatHeight}
+
+      \ifboolexpr
+        {
+          % Does the float fit in the second column?
+          test {\ifdimcomp{\@PBtmpdim}{<}{\@PBtmpRH - \@PBtmpRFH}}
+          and
+          % Is there something above this float, i.e., if we move
+          % this float to the next column, will anything remain?
+          test
+            {
+               \ifdimcomp
+                 {\@PBcurrentFloatSpaceBelow + \@PBcurrentFloatHeight}
+                 {<}
+                 {\@PBtmpLH - 6\baselineskip}
+            }
+        }
+        {\numdef{\@PBtmpcnt}{\@PBtmpcnt - 1}} % this one is ok; check next
+        {
+          % this one should not be moved, we found the limit
+          \ifdimcomp{\@PBmaxSlack}{>}{\@PBcurrentFloatSpaceBelow}
+            {\dimdef{\@PBmaxSlack}{\@PBcurrentFloatSpaceBelow}}
+            {}
+          \numdef{\@PBtmpcnt}{0} % exit the loop
+        }
+    }
+
+  \ifdimcomp{\@PBmaxSlack}{<}{\@PBslack}
+    {\dimgdef{\@PBslack}{\@PBmaxSlack}}
+    {}
+}
+\ExplSyntaxOff
+
+\newcommand\@PBifSomethingChanged[3][bal]{
+  \ifdefstrequal{\@PBprevLastPage}{\@PBlastPage}
+  {
+    \@PBifPageDataMatches
+      {pg\@Roman{\@PBlastPage}}
+      {#1pg\@Roman{\@PBlastPage}}
+      {#3}
+      {#2}
+  }
+  {#2}
+}
+
+\newcommand\@PBifPageDataMatches[4]{
+  \ifboolexpr{
+        test {\@PBifTogglesMatch{@PB#1HasFloats}{@PB#2HasFloats}}
+    and test {\@PBifTogglesMatch{@PB#1HasFloatcol}{@PB#2HasFloatcol}}
+    and test {\@PBifTogglesMatch{@PB#1HasFootnotes}{@PB#2HasFootnotes}}
+    and test {\@PBifTogglesMatch{@PB#1HasMarginpars}{@PB#2HasMarginpars}}
+    and test {\@PBifDimensionsMatch{@PB#1Height}{@PB#2Height}}
+    and test {\@PBifDimensionsMatch{@PB#1LeftHeight}{@PB#2LeftHeight}}
+    and test {\@PBifDimensionsMatch{@PB#1RightHeight}{@PB#2RightHeight}}
+    and test {\@PBifDimensionsMatch{@PB#1UsedLeft}{@PB#2UsedLeft}}
+    and test {\@PBifDimensionsMatch{@PB#1UsedRight}{@PB#2UsedRight}}
+  }
+  {#3}
+  {#4}
+}
+
+\newcommand\@PBifTogglesMatch[4]{
+  \ifboolexpr{(togl{#1} or not togl{#2}) and (togl{#2} or not togl{#1})}
+    {#3}
+    {#4}
+}
+
+\newcommand\@PBifDimensionsMatch[4]{
+  \ifdimcomp{\csuse{#1}}{=}{\csuse{#2}}
+    {#3}
+    {#4}
+}
+
+\newcommand\@PBsaveUnbalancedInfo[1][]{
+
+  \immediate\write\@mainaux{\gdef\string\@PBprevLastPage{\@PBlastPage}}
+
+  \ifboolexpr{test {\ifdefvoid{\@PBprevLastPage}} or test {\ifstrequal{#1}{update}}}
+    % Columns are currently unbalanced, either because this is
+    % the first pass (we do not have any previous information)
+    % or because the document has not stabilized yet, so any
+    % previous information is unreliable. Save the information
+    % we just collected as ``unbalanced''.
+    {\@PBsavePageDataAs{pg\@Roman{\@PBlastPage}}{unbalpg\@Roman{\@PBlastPage}}}
+    % Not the first pass, so columns are possibly balanced;
+    % to save the unbalanced information, repeat what was
+    % gathered during the first pass.
+    {\@PBsavePageData{unbalpg\@Roman{\@PBprevLastPage}}}
+}
+
+\def\@PBsaveBalancedInfo{
+  \global\toggletrue{@PBpg\@Roman{\@PBlastPage}alreadyBalanced}
+  \@PBsaveToggle{@PBpg\@Roman{\@PBlastPage}alreadyBalanced}
+
+  \@PBsavePageDataAs{pg\@Roman{\@PBlastPage}}{balpg\@Roman{\@PBlastPage}}
+}
+
+\def\@PBnotifyRerun{
+  \AtVeryEndDocument{
+    \PackageWarningNoLine{pbalance}
+    {Last page columns not balanced. Rerun LaTeX}
+  }
+}
+
+\ExplSyntaxOn
+\newcommand\@PBcopyPageData[2]{
+
+  \global\providetoggle{@PB#2HasFloats}
+  \global\providetoggle{@PB#2HasFloatcol}
+  \global\providetoggle{@PB#2HasFootnotes}
+  \global\providetoggle{@PB#2HasMarginpars}
+
+  \iftoggle{@PB#1HasFloats}
+    {\global\toggletrue{@PB#2HasFloats}}
+    {\global\togglefalse{@PB#2HasFloats}}
+
+  \iftoggle{@PB#1HasFloatcol}
+    {\global\toggletrue{@PB#2HasFloatcol}}
+    {\global\togglefalse{@PB#2HasFloatcol}}
+
+  \iftoggle{@PB#1HasFootnotes}
+    {\global\toggletrue{@PB#2HasFootnotes}}
+    {\global\togglefalse{@PB#2HasFootnotes}}
+
+  \iftoggle{@PB#1HasMarginpars}
+    {\global\toggletrue{@PB#2HasMarginpars}}
+    {\global\togglefalse{@PB#2HasMarginpars}}
+
+  \csdimgdef{@PB#2Height}{\csuse{@PB#1Height}}
+  \csdimgdef{@PB#2LeftHeight}{\csuse{@PB#1LeftHeight}}
+  \csdimgdef{@PB#2LeftFloatsHeight}{\csuse{@PB#1LeftFloatsHeight}}
+  \csdimgdef{@PB#2RightHeight}{\csuse{@PB#1RightHeight}}
+  \csdimgdef{@PB#2RightFloatsHeight}{\csuse{@PB#1RightFloatsHeight}}
+  \csdimgdef{@PB#2UsedLeft}{\csuse{@PB#1UsedLeft}}
+  \csdimgdef{@PB#2UsedRight}{\csuse{@PB#1UsedRight}}
+
+  \seq_gclear_new:c {@PB#2LeftFloatHeights}
+  \seq_gclear_new:c {@PB#2LeftFloatSpacesBelow}
+  \seq_gset_eq:cc {@PB#2LeftFloatHeights} {@PB#1LeftFloatHeights}
+  \seq_gset_eq:cc {@PB#2LeftFloatSpacesBelow} {@PB#1LeftFloatSpacesBelow}
+}
+\ExplSyntaxOff
+
+\newcommand\@PBsavePageDataAs[2]{
+  \@PBsaveDimAs{@PB#1Height}{@PB#2Height}
+  \@PBsaveDimAs{@PB#1LeftHeight}{@PB#2LeftHeight}
+  \@PBsaveDimAs{@PB#1LeftFloatsHeight}{@PB#2LeftFloatsHeight}
+  \@PBsaveDimAs{@PB#1RightHeight}{@PB#2RightHeight}
+  \@PBsaveDimAs{@PB#1RightFloatsHeight}{@PB#2RightFloatsHeight}
+  \@PBsaveDimAs{@PB#1UsedLeft}{@PB#2UsedLeft}
+  \@PBsaveDimAs{@PB#1UsedRight}{@PB#2UsedRight}
+
+  \@PBsaveToggleAs{@PB#1HasFloats}{@PB#2HasFloats}
+  \@PBsaveToggleAs{@PB#1HasFloatcol}{@PB#2HasFloatcol}
+  \@PBsaveToggleAs{@PB#1HasFootnotes}{@PB#2HasFootnotes}
+  \@PBsaveToggleAs{@PB#1HasMarginpars}{@PB#2HasMarginpars}
+
+  \@PBsaveSeqAs{@PB#1LeftFloatHeights}{@PB#2LeftFloatHeights}
+  \@PBsaveSeqAs{@PB#1LeftFloatSpacesBelow}{@PB#2LeftFloatSpacesBelow}
+}
+
+\newcommand\@PBsavePageData[1]{
+  \@PBsavePageDataAs{#1}{#1}
+}
+
+\newcommand\@PBsaveToggleAs[2]{
+  \immediate\write\@mainaux{\providetoggle{#2}}
+  \iftoggle{#1}
+    {\immediate\write\@mainaux{\global\toggletrue{#2}}}
+    {\immediate\write\@mainaux{\global\togglefalse{#2}}}
+}
+
+\newcommand\@PBsaveToggle[1]{
+  \@PBsaveToggleAs{#1}{#1}
+}
+
+\newcommand\@PBsaveDimAs[2]{
+  \immediate\write\@mainaux{\csdimgdef{#2}{\csuse{#1}}}
+}
+
+\newcommand\@PBsaveDim[1]{
+  \@PBsaveDimAs{#1}{#1}
+}
+
+\ExplSyntaxOn
+\newcommand\@PBsaveSeqAs[2]{
+  \immediate\write\@mainaux{\string\ExplSyntaxOn}
+  \immediate\write\@mainaux{\string\seq_gclear_new:c {#2}}
+  \seq_map_inline:cn {#1}
+    {\immediate\write\@mainaux{\string\global\string\seq_put_right:cn {#2}{##1}}}
+  \immediate\write\@mainaux{\string\ExplSyntaxOff}
+}
+\ExplSyntaxOff
+
+\newcommand\@PBsaveSeq[1]{
+  \@PBsaveSeqAs{#1}{#1}
+}
+
+\endinput
+%%
+%% End of file `pbalance.sty'.
