@@ -29,6 +29,7 @@ Following features are enabled in this template:
 - (Optional) Support todos as pdf annotations. This is enabled by the [pdfcomment] package.
 - [microtypographic extensions](https://www.ctan.org/pkg/microtype) for a better look of the paper.
 - Modern packages such as [microtype], [cleveref], [csquotes], [paralist], [hyperref], [hypcap], [upquote], [booktabs].
+- (Optional) LaTeX compilation using the modern lualatex compiler.
 - Ready-to-go configuration for [latexindent].
 
 ## Disabled features
