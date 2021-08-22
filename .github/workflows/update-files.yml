@@ -39,7 +39,7 @@ jobs:
         run: |
           npm link
           npm install -g yo
-      - mkdir tmp
+      - run: mkdir tmp
       - name: Generate template
         shell: bash
         working-directory: ${{ github.workspace }}/tmp
