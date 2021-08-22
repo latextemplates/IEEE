@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - Added package [pbalance](https://ctan.org/pkg/pbalance) to automatically balance the last two columns
 
+### Removed
+
+- Removed `paper-conference-compsoc.tex` as the option `compsoc` is not in use any more.
+- Removed `paper-9pt-technote.tex` as that format is not used at all.
+
 ## [1.5.0] – 2020-03-29
 
 ### Fixed
