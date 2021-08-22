@@ -1,21 +1,56 @@
-# Simplified IEEE Template [![Build](https://github.com/latextemplates/IEEE/workflows/Build%20and%20publish%20to%20gh-pages/badge.svg)](https://github.com/latextemplates/IEEE/actions?query=workflow%3A%22Build+and+publish+to+gh-pages%22)
+# Simplified IEEE Template
 
 > Quick start for modern LaTeXing for an IEEE conference, based on the [Manuscript Template for Conference Proceedings](https://www.ieee.org/conferences_events/conferences/publishing/templates.html).
 
 The official template is distributed via CTAN as the [IEEEtran package](https://ctan.org/pkg/ieeetran), which is actively maintained.
 However, de-facto configurations (hyperref) and modern features of latex (microtype) are not configured.
-This page does it.
+This template does it.
 
-This template is for the computer science conferences.
+This template is for the conferences.
 It is based on the `bare_conf_compsoc.tex` distributed by IEEE.
-In case you need other configurations, please adapt `paper-conference.tex`.
+In case you need other configurations, please adapt `paper-conference.tex` or run the [latex template generator].
 
-Examples:
+Compile it using
+
+    pdflatex paper
+
+## Benefits
+
+Following features are enabled in this template:
+
+- Provides a skeletal [paper.tex](https://latextemplates.github.io/IEEE/paper.tex) file
+- Shows how IEEE copyright notice can be added.
+- (Optional) Typesetting of listings using advanced highlighting powered by the [minted] package.
+- Generated PDF allows for copy and paste of text without getting words with ligatures such as "workflow" destroyed.
+  This is enabled by `glyphtounicode`, which encodes ligatures (such as fl) using unicode characters.
+- Support of hyperlinked references without extra color thanx to [hyperref].
+- Better breaking of long URLs.
+- Support for `\powerset` command.
+- (Optional) Support todos as pdf annotations. This is enabled by the [pdfcomment] package.
+- [microtypographic extensions](https://www.ctan.org/pkg/microtype) for a better look of the paper.
+- Modern packages such as [microtype], [cleveref], [csquotes], [paralist], [hyperref], [hypcap], [upquote], [booktabs].
+- Ready-to-go configuration for [latexindent].
+
+## Disabled features
+
+Following features were not activated for this template.
+You can run the [latex template generator] to enable the features.
+
+Hints on writing an abstract and thesis by Dirk Fahland.
+
+## Examples
 
 - [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) - regular conference paper.
 - [paper-conference-minted.pdf](https://latextemplates.github.io/IEEE/paper-conference-minted.pdf) - conference paper showing minted in action.
 
-## Attention
+## Quick start
+
+- Click on `Download ZIP` or [here](https://github.com/latextemplates/IEEE/archive/main.zip).
+- Extract `main.zip` in the folder where you want to write your paper.
+- Edit [paper-conference.tex](paper-conference.tex).
+- `latexmk paper-conference`.
+
+## Attention regarding `compsocconf`
 
 Some conferences distribute a `IEEEtran.cls` V1.7a dated 2007 and a parameter `compsocconf`.
 **The parameter `compsocconf` was NEVER included in Michael Shell's IEEEtran.cls file. It is unclear, who did this patch and why it is around in the wild.**
@@ -39,8 +74,11 @@ LaTeX Warning: Unused global option(s):
     [compsocconf].
 ```
 
-When using the 2007 version or the most recent version with (the unhandled) `compsocconf`, you'll get [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) instead of [paper-conference-compsoc.pdf](https://latextemplates.github.io/IEEE/paper-conference-compsoc.pdf).
+## `compsoc` option is not needed any more
+
+When using the 2007 version or the most recent version with (the unhandled) `compsocconf`, you'll get [paper-conference.pdf](https://latextemplates.github.io/IEEE/paper-conference.pdf) instead of `paper-conference-compsoc.pdf`.
 That differs significantly in the style used for section headings.
+`paper-conference-compsoc.pdf` was removed from the build since August 2021, because `compsoc` option was not used by computer science conferences in 2021.
 
 IEEE distributes their templates at <https://www.ieee.org/conferences_events/conferences/publishing/templates.html>.
 With the update of July 2017, the archive <https://www.ieee.org/documents/ieee-latex-conference-template.zip> contains both `bare_conf.tex` and `bare_conf_compsoc.tex`.
@@ -54,48 +92,12 @@ Statement from IEEE:
 
 > Please note that, as stated on the webpage <https://www.ieee.org/conferences_events/conferences/publishing/templates.html>. "IEEE does not require a specific format for their conference articles". Thus, we dot not purport that the "compsoc" is a requirement for publishing conference papers with us.
 
-## TOC
-
-<!-- toc -->
-
-- [Features](#features)
-- [Quick start](#quick-start)
-- [Tool hints](#tool-hints)
-- [Using the template with your git repository](#using-the-template-with-your-git-repository)
-- [FAQ](#faq)
-- [Links](#links)
-
-<!-- tocstop -->
-
-## Features
-
-- Provides skeletal [paper-conference.tex](paper-conference.tex) and [paper-conference-compsoc.tex](paper-conference-compsoc.tex) files.
-- Generated PDF allows for copy and paste of text without getting words with ligatures such as "workflow" destroyed.
-   This is enabled by the [cmap] package, which encodes ligatures (such as fl) using unicode characters.
-- Support of hyperlinked references without extra color thanx to [hyperref].
-- Better breaking of long URLs.
-- Support for `\powerset` command.
-- Support todos as pdf annotations. This is enabled by the [pdfcomment] package.
-- [microtypographic extensions](https://www.ctan.org/pkg/microtype) for a better look of the paper.
-- Adds modern packages such as [microtype], [cleveref], [csquotes], [booktabs], [paralist], [hyperref], [hypcap], [upquote].
-- Shows how IEEE copyright notice can be added.
-- Optional: Support for [minted] package. Prepared in `paper-conference-minted.tex`.
-- Ready-to-go configuration for [latexindent].
-
-## Quick start
-
-- Click on `Download ZIP` or [here](https://github.com/latextemplates/IEEE/archive/master.zip).
-- Extract `master.zip` in the folder where you want to write your paper.
-- In case you are working in the computer science field: Edit [paper-conference-compsoc.tex](paper-conference-compsoc.tex).
-- In case you are NOT working in the computer science field: Edit [paper-conference.tex](paper-conference.tex).
-- `latexmk paper-conference-compsoc` OR `latexmk paper-conference`.
-
 ## Tool hints
 
 There is currently no official biblatex support.
 A first step towards that is done at the [biblatex-ieee package](https://ctan.org/pkg/biblatex-ieee).
 
-MiKTeX installation hints are given at <https://github.com/latextemplates/scientific-thesis-template/blob/template/README.md#installation-hints-for-windows>.
+MiKTeX installation hints are given at <http://latextemplates.github.io/scientific-thesis-template/#installation-hints-for-windows>.
 
 - Grammar and spell checking is available at [TeXstudio].
   Please download [LanguageTool] (Windows: `choco install languagetool`) and [configure TeXstudio to use it](http://wiki.languagetool.org/checking-la-tex-with-languagetool#toc4).
@@ -103,65 +105,89 @@ MiKTeX installation hints are given at <https://github.com/latextemplates/scient
   **If TeXstudio doesn't fit your need, check [the list of all available LaTeX Editors](http://tex.stackexchange.com/questions/339/latex-editors-ides).**
 - Use [JabRef] to manage your bibliography (Windows: `choco install jabref`).
 
-
-In case you want to get started using minted, do following steps:
+To have minted running properly, you have to do following steps on Windows:
 
 1. Install python: `choco install python` - that uses [chocolatey](https://chocolatey.org/) to install Python
 2. Install [pygments]: `pip instal pygments` - that uses the Pyhton package manager to install the pygments library
 3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper`.
    You can also just execute `latexmk paper`.
 
-## Using the template with your git repository
-
-1. Initialize your git repository as usual
-2. Add this repository as upstream: `git remote add upstream https://github.com/latextemplates/IEEE.git`
-3. Merge the branch `upstream/master` into your `master` branch: `git merge upstream/master`.
-
-After that you can use and push the `master` branch as usual.
-Notes on syncing with the upstream repository [are available from GitHub](https://help.github.com/articles/syncing-a-fork/).
-
-## FAQ
-
-### Q: I get the error  `! pdfTeX error (font expansion): auto expansion is only possible with scalable fonts.` What can I do?
-
-Install the `cm-super` package using the MiKTeX package manager. Then, run `initexmf --mkmaps` on the command line. (Long description: http://tex.stackexchange.com/a/324972/9075)
+## FAQs
 
 ### Q: I have questions on the IEEEtran class itself.
 
 The author of the class offers a large FAQ at <http://www.michaelshell.org/tex/ieeetran/>.
 Please read on there.
+The other possiblity is to execute `texdoc ieeetran` and read in the documentation.
+For example, there is an explanation of how to typeset the afficiliation information with four or more authors properly.
 
-### Q: How can I reformat my .tex files?
+### Q: How can I synchronize updates from the template to my repository?
 
-Execute `latexindent -l -s -sl -w paper.tex`
+1. Initialize your git repository as usual
+2. Add this repository as upstream: `git remote add upstream https://github.com/latextemplates/LNCS.git`
+3. Merge the branch `upstream/main` into your `main` branch: `git merge upstream/main`.
 
-### Q: How I want to obey the one-sentence-per-line rule.
+After that you can use and push the `main` branch as usual.
+Notes on syncing with the upstream repository [are available from GitHub](https://help.github.com/articles/syncing-a-fork/).
 
-Execute `latexindent -m -l -s -sl -w paper.tex`.
+### Q: I get the error  `! pdfTeX error (font expansion): auto expansion is only possible with scalable fonts.`
+
+Install the `cm-super` package using the MiKTeX package manager. Then, run `initexmf --mkmaps` on the command line. (Long description: <https://tex.stackexchange.com/a/324972/9075>)
+
+### Q: I get `Package csquotes Error: Unbalanced groups or invalid nesting.` What can I do?
+
+A: You have activated `\MakeOuterQuote{"}` and used some special babel command to allow hyphenation at other places as a dash. One example is writing `application"=specific`.
+Now, you have to decide whether you want keep using plain quotes to enquote a word or use the special hyphenation command.
+In other words: Do you want `"quote"` and `app\-lication\-specific` or `\enquote{quote} and  application"=specific`?
+
+Note that this should not happen when the template is generated as the setting `tweak_outerquote` ensures that these two options are mutually exclusive.
+
+### Q: I need more space. What can I do?
+
+The most simple solution to get more space is to exchange the font.
+
+### Q: How can I reformat my `.tex` files?
+
+Execute following command:
+
+    latexindent -l -s -sl -w paper.tex
+
+### Q: I want to obey the one-sentence-per-line rule. How can I do that?
+
+Execute following command:
+
+    latexindent -m -l -s -sl -w paper.tex
+
 Attention! This is work in progress and does not always produce best results.
 
-## Links
+### Q: Can I also write in German?
 
-- German: Hinweise zu Ausarbeitungen: <http://wiki.flupp.de/studium/ausarbeitungen>
-- Other templates: <http://latextemplates.github.io/>
+Yes. You can regenerate the template and choose "German" as language.
 
-  [booktabs]: https://www.ctan.org/pkg/booktabs
-  [cleveref]: https://ctan.org/pkg/cleveref
-  [cmap]: https://www.ctan.org/pkg/cmap
-  [csquotes]: https://www.ctan.org/pkg/csquotes
-  [hypcap]: https://www.ctan.org/pkg/hypcap
-  [hyperref]: https://ctan.org/pkg/hyperref
-  [latexindent]: https://ctan.org/pkg/latexindent
-  [microtype]: https://ctan.org/pkg/microtype
-  [minted]: https://ctan.org/pkg/minted
-  [newtx]: https://ctan.org/pkg/newtx
-  [paralist]: https://www.ctan.org/pkg/paralist
-  [pdfcomment]: https://www.ctan.org/pkg/pdfcomment
-  [upquote]: https://www.ctan.org/pkg/upquote
+## Further information
 
-  [JabRef]: https://www.jabref.org
-  [LanguageTool]: https://languagetool.org/
-  [TeXstudio]: http://texstudio.sourceforge.net/
-  [pygments]: http://pygments.org/
+- Other templates: <https://latextemplates.github.io/>
 
-<!-- markdownlint-disable-file MD026 -->
+[booktabs]: https://ctan.org/pkg/booktabs
+[cfr-lm]: https://www.ctan.org/pkg/cfr-lm
+[cleveref]: https://ctan.org/pkg/cleveref
+[csquotes]: https://www.ctan.org/pkg/csquotes
+[hypcap]: https://www.ctan.org/pkg/hypcap
+[hyperref]: https://ctan.org/pkg/hyperref
+[latexindent]: https://ctan.org/pkg/latexindent
+[microtype]: https://ctan.org/pkg/microtype
+[minted]: https://ctan.org/pkg/minted
+[natbib]: https://ctan.org/pkg/natbib
+[newtx]: https://ctan.org/pkg/newtx
+[paralist]: https://www.ctan.org/pkg/paralist
+[pdfcomment]: https://www.ctan.org/pkg/pdfcomment
+[upquote]: https://www.ctan.org/pkg/upquote
+
+[JabRef]: https://www.jabref.org
+[LanguageTool]: https://languagetool.org/
+[latex template generator]: https://www.npmjs.com/package/generator-latex-template
+[pygments]: http://pygments.org/
+[TeXstudio]: http://texstudio.sourceforge.net/
+
+<!-- disable markdown-lint rules contradicting our writing of FAQs -->
+<!-- markdownlint-disable-file MD001 MD013 MD026 -->
