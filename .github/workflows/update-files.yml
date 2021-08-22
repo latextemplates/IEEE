@@ -74,7 +74,9 @@ jobs:
         working-directory: ${{ github.workspace }}/tmp
         run: |
           if [ "${{ matrix.listings }}" == "minted" ]; then
-            mv paper.tex paper-minted.tex
+            mv paper.tex paper-conference-minted.tex
+          else
+            mv paper.tex paper-conference.tex
           fi
           # remove compiled output
           rm paper.pdf
