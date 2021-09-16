@@ -108,7 +108,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - run: |
-          cpppaper-conference.tex paper.tex
+          cp paper-conference.tex paper.tex
       - name: Commit changes
         uses: EndBug/add-and-commit@v7
         with:
@@ -116,7 +116,6 @@ jobs:
           committer_email: 'actions@github.com'
           push: false
           pull_strategy: 'NO-PULL'
-          cwd: 'code'
       - name: Push changes
         run: |
           cd code
