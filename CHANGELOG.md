@@ -7,10 +7,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
-### Added
-
-- Added package [pbalance](https://ctan.org/pkg/pbalance) to automatically balance the last two columns
-
 ### Removed
 
 - Removed `paper-conference-compsoc.tex` as the option `compsoc` is not in use any more.
