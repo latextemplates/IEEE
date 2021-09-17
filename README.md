@@ -10,7 +10,13 @@ This template is for the conferences.
 It is based on the `bare_conf_compsoc.tex` distributed by IEEE.
 In case you need other configurations, please adapt `paper-conference.tex` or run the [latex template generator].
 
-Compile it using
+To build the whole document, execute following command.
+Note that this requires a working perl installation.
+
+    latexmk paper
+
+In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
+
 
     pdflatex paper
 
