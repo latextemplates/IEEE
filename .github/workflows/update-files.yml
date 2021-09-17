@@ -118,7 +118,6 @@ jobs:
           pull_strategy: 'NO-PULL'
       - name: Push changes
         run: |
-          cd code
           git pull --rebase
           git push
   publish:
