@@ -51,7 +51,7 @@ jobs:
            --papersize=a4\
            --latexcompiler=pdflatex\
            --bibtextool=bibtex\
-           --texlive=2019\
+           --texlive=2020\
            --language=en\
            --font=default\
            --listings=${{ matrix.listings }}\
@@ -64,7 +64,7 @@ jobs:
         env:
           yeoman_test: true
       - name: Check build (latexmk)
-        uses: dante-ev/latex-action@2019-A
+        uses: dante-ev/latex-action@2020-A
         with:
           root_file: paper.tex
           # ${{ github.workspace }} holds wrong directory (only valid for "run" tasks, not for container-based tasks)
@@ -127,11 +127,11 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - name: Build paper-conference.tex
-        uses: dante-ev/latex-action@2019-A
+        uses: dante-ev/latex-action@2020-A
         with:
           root_file: paper-conference.tex
       - name: Build paper-conference-minted.tex
-        uses: dante-ev/latex-action@2019-A
+        uses: dante-ev/latex-action@2020-A
         with:
           root_file: paper-conference-minted.tex
       - run: |
