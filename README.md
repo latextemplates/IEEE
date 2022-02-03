@@ -2,8 +2,6 @@
 
 > Quick start for modern LaTeXing for an IEEE conference, based on the [Manuscript Template for Conference Proceedings](https://www.ieee.org/conferences_events/conferences/publishing/templates.html).
 
-Please be aware that this template is optimized for overleaf, which [is based on TeXLive 2020](https://de.overleaf.com/blog/tex-live-2020-now-available).
-In case you are running a later TeXLive version (or use MiKTeX), please regenerate the template with the help of the [latex template generator].
 
 The official template is distributed via CTAN as the [IEEEtran package](https://ctan.org/pkg/ieeetran), which is actively maintained.
 However, de-facto configurations (hyperref) and modern features of latex (microtype) are not configured.
@@ -19,7 +17,6 @@ Note that this requires a working perl installation.
     latexmk paper
 
 In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
-
 
     pdflatex paper
 
@@ -121,6 +118,17 @@ To have minted running properly, you have to do following steps on Windows:
 2. Install [pygments]: `pip instal pygments` - that uses the Pyhton package manager to install the pygments library
 3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper`.
    You can also just execute `latexmk paper`.
+
+## Usage with docker
+
+The generated `Dockerfile` is based on the [Dockerfile by reitzig](https://github.com/reitzig/texlive-docker).
+The idea of that system is to host the document sources in a directory separated from the output directory.
+
+    docker run --rm -v "c:\users\example\latex-document:/work/src" -v "c:\users\example\latex-document\out:/work/out" ltg work latexmk
+
+Following one-time setup is requried:
+
+    docker build -t ltg .
 
 ## FAQs
 
