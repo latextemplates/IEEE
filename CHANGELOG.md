@@ -7,10 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
 
+### Added
+
+- Added package [mindflow](https://www.ctan.org/pkg/mindflow), which supports quickly noting down thoughts with a) a proper rendering of LaTeX and b) a proper differentiation from the main text
+
 ### Removed
 
 - Removed `paper-conference-compsoc.tex` as the option `compsoc` is not in use any more.
 - Removed `paper-9pt-technote.tex` as that format is not used at all.
+
+### Changed
+
+- Updated to TeXLive 2021
+- Switch from [balance](https://ctan.org/pkg/balance) to [pbalance](https://ctan.org/pkg/pbalance), because the latter works better in edge cases.
 
 ## [1.5.0] – 2020-03-29
 
