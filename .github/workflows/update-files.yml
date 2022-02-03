@@ -103,7 +103,7 @@ jobs:
           push: true
   publish:
     runs-on: ubuntu-latest
-    needs: [generatetex]
+    needs: [update]
     services:
       registry:
         image: registry:2
@@ -137,6 +137,7 @@ jobs:
       - run: |
           mkdir publish
           cp /tmp/out/*.pdf publish/
+          cp paper.tex publish/
           cp README.md publish/
           cp .github/_config.yml publish/
       - uses: actions/upload-artifact@v2
