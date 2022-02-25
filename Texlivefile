@@ -6,7 +6,6 @@ auxhook
 babel
 babel-english
 babel-german
-biber
 bigintcalc
 bitset
 blindtext
@@ -19,9 +18,7 @@ comment
 csquotes
 currfile
 datetime2
-datetime2-german
 datetime2-english
-dehyph-exptl
 diagbox
 environ
 etexcmds
@@ -30,10 +27,14 @@ floatflt
 framed
 fvextra
 gettitlestring
+glossaries
+glossaries-extra
 graphics
 hyperref
 hyperxmp
 hyph-utf8
+hyphen-english
+hyphenex
 inconsolata
 ieeetran
 ifmtarg
