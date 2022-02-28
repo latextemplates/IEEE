@@ -58,9 +58,10 @@ jobs:
         working-directory: /tmp/ltg
         run: |
           if [ "${{ matrix.listings }}" == "minted" ]; then
+            # paper.tex should not be overwritten
             mv paper.tex paper-conference-minted.tex
           else
-            mv paper.tex paper-conference.tex
+            cp paper.tex paper-conference.tex
           fi
 
           # remove files which should not be overwritten
@@ -74,8 +75,10 @@ jobs:
           # copy everything
           cp -r * ${{ github.workspace }}/code/
 
+          # output current status
           cd ${{ github.workspace }}/code/
           git status
+          git diff
       - name: Commit changes
         uses: EndBug/add-and-commit@v8
         with:
@@ -87,26 +90,9 @@ jobs:
         run: |
           cd code
           parallel --retries 10 --delay 3 ::: "git pull --rebase && git push"
-  update:
-    runs-on: ubuntu-latest
-    needs: [generatetex]
-    steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v2
-      - run: |
-          cp paper-conference.tex paper.tex
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v8
-        with:
-          message: 'Update files based on generated files by template generator'
-          committer_email: actions@github.com
-          push: false
-      - name: Push changes
-        run: |
-          parallel --retries 10 --delay 3 ::: "git pull --rebase && git push"
   publish:
     runs-on: ubuntu-latest
-    needs: [update]
+    needs: [generatetex]
     services:
       registry:
         image: registry:2
