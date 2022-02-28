@@ -2,8 +2,8 @@
 
 All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/)
-and this project adheres to [Semantic Versioning](http://semver.org/).
+The format is based on [Keep a Changelog](http://keepachangelog.com/).
+From 2021-08-17 on versioning is done using [Calendar Versioning](https://calver.org/).
 
 ## [Unreleased]
 
@@ -18,8 +18,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Changed
 
+- Now generated using the [latex template generator](https://www.npmjs.com/package/generator-latex-template).
 - Updated to TeXLive 2021
 - Switch from [balance](https://ctan.org/pkg/balance) to [pbalance](https://ctan.org/pkg/pbalance), because the latter works better in edge cases.
+
+### Fixed
+
+- Examples now also work on overleaf. `\currfile` now correctly returns `main.tex`/`paper.tex` instead of `output.tex`.
 
 ## [1.5.0] – 2020-03-29
 
