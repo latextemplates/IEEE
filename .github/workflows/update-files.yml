@@ -92,7 +92,7 @@ jobs:
           parallel --retries 10 --delay 3 ::: "git pull --rebase && git push"
   publish:
     runs-on: ubuntu-latest
-    needs: [update]
+    needs: [generatetex]
     services:
       registry:
         image: registry:2
