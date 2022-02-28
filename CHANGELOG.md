@@ -3,9 +3,9 @@
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
-From 2021-08-17 on versioning is done using [Calendar Versioning](https://calver.org/).
+From 2022-02-28 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
-## [Unreleased]
+## [2022-02-28]
 
 ### Added
 
@@ -86,7 +86,8 @@ From 2021-08-17 on versioning is done using [Calendar Versioning](https://calver
 
 First release using semantic versioning.
 
-[Unreleased]: https://github.com/latextemplates/IEEE/compare/1.5.0...HEAD
+[Unreleased]: https://github.com/latextemplates/IEEE/compare/2022-02-28...HEAD
+[2022-02-28]: https://github.com/latextemplates/IEEE/compare/1.5.0...2022-02-28
 [1.5.0]: https://github.com/latextemplates/IEEE/compare/1.4.0...1.5.0
 [1.4.0]: https://github.com/latextemplates/IEEE/compare/1.3.0...1.4.0
 [1.3.0]: https://github.com/latextemplates/IEEE/compare/1.2.0...1.3.0
