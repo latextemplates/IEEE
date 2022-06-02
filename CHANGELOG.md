@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 From 2022-02-28 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- `_latexmkrc` is available instead of `latexmkrc` to ease usage at overleaf. [lncs#40](https://github.com/latextemplates/LNCS/issues/40)
+
+### Fixed
+
+- Fixed reference to examples in IEEE template
+
 ## [2022-02-28]
 
 ### Added
