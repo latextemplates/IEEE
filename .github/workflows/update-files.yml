@@ -120,6 +120,8 @@ jobs:
         uses: actions/checkout@v2
       - run: |
           mkdir /tmp/out
+          # use latexmkrc (which is disabled due to easy overleaf usage)
+          cp _latexmkrc latexmkrc
       - name: Build paper-conference.tex
         run: docker run -v $(pwd):/work/src -v /tmp/out:/work/out localhost:5000/name/app:latest work "latexmk paper-conference.tex"
       - name: Build paper-conference-minted.tex
