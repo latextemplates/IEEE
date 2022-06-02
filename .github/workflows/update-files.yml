@@ -42,7 +42,7 @@ jobs:
            --papersize=a4\
            --latexcompiler=pdflatex\
            --bibtextool=bibtex\
-           --texlive=2021\
+           --overleaf=true\
            --language=en\
            --font=default\
            --listings=${{ matrix.listings }}\
