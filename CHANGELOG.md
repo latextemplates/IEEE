@@ -7,6 +7,10 @@ From 2022-02-28 onwards, versioning is done using [Calendar Versioning](https://
 
 ## [Unreleased]
 
+### Added
+
+- Magic comment for [LTeX](https://github.com/valentjn/vscode-ltex#ltex-extension-for-vs-code-grammarspell-checker-using-languagetool-with-support-for-latex-markdown-and-others) (because of [vscode-ltex#632](https://github.com/valentjn/vscode-ltex/issues/632))
+
 ### Changed
 
 - `_latexmkrc` is available instead of `latexmkrc` to ease usage at overleaf. [lncs#40](https://github.com/latextemplates/LNCS/issues/40)
