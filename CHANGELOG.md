@@ -14,6 +14,7 @@ From 2022-02-28 onwards, versioning is done using [Calendar Versioning](https://
 ### Fixed
 
 - Fixed reference to examples in IEEE template
+- Missing linebreak in the introduction
 
 ## [2022-02-28]
 
