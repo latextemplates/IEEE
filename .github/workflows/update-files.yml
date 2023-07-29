@@ -1,6 +1,8 @@
 name: Update Files
 on:
   push:
+    branches:
+      - update-ltg
   workflow_dispatch:
 concurrency:
   group: update-files
@@ -36,7 +38,7 @@ jobs:
            --githubpublish\
            --docker=reitzig\
            --documentclass=ieee\
-           --ieee_variant=conference\
+           --ieeevariant=conference\
            --papersize=a4\
            --latexcompiler=pdflatex\
            --bibtextool=bibtex\
