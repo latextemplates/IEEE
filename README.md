@@ -158,7 +158,7 @@ A: You have activated `\MakeOuterQuote{"}` and used some special babel command t
 Now, you have to decide whether you want keep using plain quotes to enquote a word or use the special hyphenation command.
 In other words: Do you want `"quote"` and `app\-lication\-specific` or `\enquote{quote} and  application"=specific`?
 
-Note that this should not happen when the template is generated as the setting `tweak_outerquote` ensures that these two options are mutually exclusive.
+Note that this should not happen when the template is generated as the setting `tweakouterquote` ensures that these two options are mutually exclusive.
 
 ### Q: I need more space. What can I do?
 
