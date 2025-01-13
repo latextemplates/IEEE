@@ -25,7 +25,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'generator-latex-template/package-lock.json'
       - name: Make generator available globally
-        working-directory: ${{ github.workspace }}generator-latex-template
+        working-directory: ${{ github.workspace }}/generator-latex-template
         run: |
           npm install
           npm link
