@@ -42,7 +42,7 @@ jobs:
            --documentclass=ieee\
            --ieeevariant=conference\
            --papersize=a4\
-           --latexcompiler=pdflatex\
+           --latexcompiler=both\
            --bibtextool=bibtex\
            --overleaf=true\
            --texlive=2024\
