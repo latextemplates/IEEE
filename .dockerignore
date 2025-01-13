@@ -1,5 +1,7 @@
-paper.pdf
-paper-*.pdf
+Dockerfile
+
+main.pdf
+main-*.pdf
 graphics/*.pdf_tex
 democode.tex
 
