@@ -3,7 +3,8 @@
 % !TeX spellcheck = en-US
 % LTeX: language=en-US
 % !TeX encoding = utf8
-% !TeX program = pdflatex
+% !TeX program = lualatex
+% !TeX TXS-program:compile = txs:///lualatex/[--shell-escape]
 % !BIB program = bibtex
 % -*- coding:utf-8 mod:LaTeX -*-
 
@@ -14,6 +15,9 @@
 % Balance the last page using the balance package (see https://ctan.org/pkg/balance)
 % Alternative to balance is the pbalance package (see https://ctan.org/pkg/pbalance), which sometimes works better
 \usepackage{balance}
+
+\usepackage{iftex}
+
 % backticks (`) are rendered as such in verbatim environments.
 % See following links for details:
 %   - https://tex.stackexchange.com/a/341057/9075
@@ -51,12 +55,23 @@
 %\g@addto@macro\UrlSpecials{\do\/{\Url@twoslashes}}
 %\makeatother
 
+\ifluatex
+\usepackage[no-math]{fontspec}
+\usepackage{unicode-math}
+
+
+% Enable proper ligatures
+% For more information see https://ctan.org/pkg/selnolig
+% language "english" or "ngerman" is passed to selnolig by the document class
+\usepackage{selnolig}
+\else
 
 % use nicer font for code
 \usepackage[zerostyle=b,scaled=.75]{newtxtt}
 
 % Has to be loaded AFTER any font packages. See https://tex.stackexchange.com/a/2869/9075.
 \usepackage[T1]{fontenc}
+\fi
 
 % Character protrusion and font expansion. See http://www.ctan.org/tex-archive/macros/latex/contrib/microtype/
 
@@ -349,6 +364,13 @@
 % Add manual adapted hyphenation of English words
 % See https://ctan.org/pkg/hyphenex and https://tex.stackexchange.com/a/22892/9075 for details
 \input{ushyphex}
+
+\ifluatex
+% Enable correct rendering of ligatures - provided by https://ctan.org/pkg/selnolig
+% See ADR-0009 for alternatives
+\usepackage{selnolig}
+\fi
+
 % correct bad hyphenation here
 \hyphenation{
   op-tical net-works semi-conduc-tor
@@ -356,6 +378,7 @@
   AROMA TOSCA BPMN OASIS OMG DMTF IT DevOps
 }
 
+\ifpdftex
 % Enable copy and paste of text from the PDF
 % Only required for pdflatex. It "just works" in the case of lualatex.
 % Alternative: cmap or mmap package
@@ -367,6 +390,7 @@
 % According to https://tex.stackexchange.com/q/451235/9075 this is the way to go
 \input glyphtounicode
 \pdfgentounicode=1
+\fi
 \begin{document}
 % Enable following command if you need to typeset "IEEEpubid".
 % See https://bytefreaks.net/tag/ieeeoverridecommandlockouts for details.
