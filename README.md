@@ -37,6 +37,7 @@ Following features are enabled in this template:
 - Modern packages such as [microtype], [cleveref], [csquotes], [paralist], [hyperref], [hypcap], [upquote], [booktabs].
 - (Optional) LaTeX compilation using the modern lualatex compiler.
 - Ready-to-go configuration for [latexindent].
+- Proper hyphenation and microtype for English texts.
 
 ## Disabled features
 
@@ -118,26 +119,14 @@ To have minted running properly, you have to do following steps on Windows:
 2. Install [pygments]: `pip instal pygments` - that uses the Pyhton package manager to install the pygments library
 3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper`.
    You can also just execute `latexmk paper`.
-
-## Usage with docker
-
-The generated `Dockerfile` is based on the [Dockerfile by reitzig](https://github.com/reitzig/texlive-docker).
-The idea of that system is to host the document sources in a directory separated from the output directory.
-
-    docker run --rm -v "c:\users\example\latex-document:/work/src" -v "c:\users\example\latex-document\out:/work/out" ltg work latexmk
-
-Following one-time setup is requried:
-
-    docker build -t ltg .
-
 ## FAQs
 
 ### Q: I have questions on the IEEEtran class itself.
 
 The author of the class offers a large FAQ at <http://www.michaelshell.org/tex/ieeetran/>.
 Please read on there.
-The other possiblity is to execute `texdoc ieeetran` and read in the documentation.
-For example, there is an explanation of how to typeset the afficiliation information with four or more authors properly.
+The other possibility is to execute `texdoc ieeetran` and read in the documentation.
+For example, there is an explanation of how to typeset the affiliation information with four or more authors properly.
 
 ### Q: How can I synchronize updates from the template to my repository?
 
@@ -148,7 +137,7 @@ For example, there is an explanation of how to typeset the afficiliation informa
 After that you can use and push the `main` branch as usual.
 Notes on syncing with the upstream repository [are available from GitHub](https://help.github.com/articles/syncing-a-fork/).
 
-### Q: I get the error  `! pdfTeX error (font expansion): auto expansion is only possible with scalable fonts.`
+### Q: I get the error `! pdfTeX error (font expansion): auto expansion is only possible with scalable fonts.`
 
 Install the `cm-super` package using the MiKTeX package manager. Then, run `initexmf --mkmaps` on the command line. (Long description: <https://tex.stackexchange.com/a/324972/9075>)
 
@@ -178,6 +167,10 @@ Execute following command:
 
 Attention! This is work in progress and does not always produce best results.
 
+### Q: Is it possible produce a self-archiving version?
+
+Use the [`authorarchive` package](https://ctan.org/pkg/authorarchive).
+
 ### Q: Can I also write in German?
 
 Yes. You can regenerate the template and choose "German" as language.
@@ -187,7 +180,6 @@ Yes. You can regenerate the template and choose "German" as language.
 - Other templates: <https://latextemplates.github.io/>
 
 [booktabs]: https://ctan.org/pkg/booktabs
-[cfr-lm]: https://www.ctan.org/pkg/cfr-lm
 [cleveref]: https://ctan.org/pkg/cleveref
 [csquotes]: https://www.ctan.org/pkg/csquotes
 [hypcap]: https://www.ctan.org/pkg/hypcap
@@ -196,7 +188,6 @@ Yes. You can regenerate the template and choose "German" as language.
 [microtype]: https://ctan.org/pkg/microtype
 [minted]: https://ctan.org/pkg/minted
 [natbib]: https://ctan.org/pkg/natbib
-[newtx]: https://ctan.org/pkg/newtx
 [paralist]: https://www.ctan.org/pkg/paralist
 [pdfcomment]: https://www.ctan.org/pkg/pdfcomment
 [upquote]: https://www.ctan.org/pkg/upquote
