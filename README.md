@@ -175,6 +175,10 @@ Use the [`authorarchive` package](https://ctan.org/pkg/authorarchive).
 
 Yes. You can regenerate the template and choose "German" as language.
 
+### Q: `ngerman-x-latest` is reported missing
+
+Install the package `dehyph-exptl`.
+
 ## Further information
 
 - Other templates: <https://latextemplates.github.io/>
