@@ -49,7 +49,6 @@ jobs:
            --lang=en\
            --font=default\
            --listings=${{ matrix.listings }}\
-           --cleveref=true\
            --enquotes=csquotes\
            --tweakouterquote=babel\
            --todo=pdfcomment\
