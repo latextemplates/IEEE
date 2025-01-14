@@ -2,7 +2,6 @@
 
 > Quick start for modern LaTeXing for an IEEE conference, based on the [Manuscript Template for Conference Proceedings](https://www.ieee.org/conferences_events/conferences/publishing/templates.html).
 
-
 The official template is distributed via CTAN as the [IEEEtran package](https://ctan.org/pkg/ieeetran), which is actively maintained.
 However, de-facto configurations (hyperref) and modern features of latex (microtype) are not configured.
 This template does it.
@@ -16,9 +15,11 @@ Note that this requires a working perl installation.
 
     latexmk paper
 
+To enable this, please move `_latexmkrc` to `latexmkrc`.
+
 In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
 
-    pdflatex paper
+    lualatex paper
 
 ## Benefits
 
@@ -37,6 +38,7 @@ Following features are enabled in this template:
 - Modern packages such as [microtype], [cleveref], [csquotes], [paralist], [hyperref], [hypcap], [upquote], [booktabs].
 - (Optional) LaTeX compilation using the modern lualatex compiler.
 - Ready-to-go configuration for [latexindent].
+- Proper hyphenation and microtype for English texts.
 
 ## Disabled features
 
@@ -121,12 +123,11 @@ To have minted running properly, you have to do following steps on Windows:
 
 ## Usage with docker
 
-The generated `Dockerfile` is based on the [Dockerfile by reitzig](https://github.com/reitzig/texlive-docker).
-The idea of that system is to host the document sources in a directory separated from the output directory.
+The generated `Dockerfile` is based on the [Dockerfile by the Island of TeX](https://gitlab.com/islandoftex/images/texlive#tex-live-docker-image).
 
-    docker run --rm -v "c:\users\example\latex-document:/work/src" -v "c:\users\example\latex-document\out:/work/out" ltg work latexmk
+    docker run --rm -v "c:\users\example\latex-document:/workdir" latexmk
 
-Following one-time setup is requried:
+Following one-time setup is required:
 
     docker build -t ltg .
 
@@ -136,8 +137,8 @@ Following one-time setup is requried:
 
 The author of the class offers a large FAQ at <http://www.michaelshell.org/tex/ieeetran/>.
 Please read on there.
-The other possiblity is to execute `texdoc ieeetran` and read in the documentation.
-For example, there is an explanation of how to typeset the afficiliation information with four or more authors properly.
+The other possibility is to execute `texdoc ieeetran` and read in the documentation.
+For example, there is an explanation of how to typeset the affiliation information with four or more authors properly.
 
 ### Q: How can I synchronize updates from the template to my repository?
 
@@ -148,7 +149,7 @@ For example, there is an explanation of how to typeset the afficiliation informa
 After that you can use and push the `main` branch as usual.
 Notes on syncing with the upstream repository [are available from GitHub](https://help.github.com/articles/syncing-a-fork/).
 
-### Q: I get the error  `! pdfTeX error (font expansion): auto expansion is only possible with scalable fonts.`
+### Q: I get the error `! pdfTeX error (font expansion): auto expansion is only possible with scalable fonts.`
 
 Install the `cm-super` package using the MiKTeX package manager. Then, run `initexmf --mkmaps` on the command line. (Long description: <https://tex.stackexchange.com/a/324972/9075>)
 
@@ -178,16 +179,29 @@ Execute following command:
 
 Attention! This is work in progress and does not always produce best results.
 
+### Q: Is it possible produce a self-archiving version?
+
+Use the [`authorarchive` package](https://ctan.org/pkg/authorarchive).
+
 ### Q: Can I also write in German?
 
 Yes. You can regenerate the template and choose "German" as language.
+
+### Q: `ngerman-x-latest` is reported missing
+
+Install the package `dehyph-exptl`.
+
+### Q: I get ``! I can't find file `clmr28t10+20'.``
+
+You seem to use `latexmk` locally.
+Please move `_latexmkrc` to `latexmkrc` to get `latexmk` working.
+If you don't do this, `latexmk` tries to execute `latex`, which tries to produce a DVI file (and not a PDF file).
 
 ## Further information
 
 - Other templates: <https://latextemplates.github.io/>
 
 [booktabs]: https://ctan.org/pkg/booktabs
-[cfr-lm]: https://www.ctan.org/pkg/cfr-lm
 [cleveref]: https://ctan.org/pkg/cleveref
 [csquotes]: https://www.ctan.org/pkg/csquotes
 [hypcap]: https://www.ctan.org/pkg/hypcap
@@ -196,7 +210,6 @@ Yes. You can regenerate the template and choose "German" as language.
 [microtype]: https://ctan.org/pkg/microtype
 [minted]: https://ctan.org/pkg/minted
 [natbib]: https://ctan.org/pkg/natbib
-[newtx]: https://ctan.org/pkg/newtx
 [paralist]: https://www.ctan.org/pkg/paralist
 [pdfcomment]: https://www.ctan.org/pkg/pdfcomment
 [upquote]: https://www.ctan.org/pkg/upquote
