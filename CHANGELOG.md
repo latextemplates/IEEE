@@ -7,6 +7,11 @@ From 2022-02-28 onwards, versioning is done using [Calendar Versioning](https://
 
 ## [2025-01-25]
 
+### Added
+
+- Added [TeXcount](https://app.uio.no/ifi/texcount/index.html) to GitHub workflow summary.
+- GitHub workflow job summary for `latexmk` generated using [texlogsieve](https://ctan.org/pkg/texlogsieve).
+
 ### Changed
 
 - Refined `README.md`
