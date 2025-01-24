@@ -104,8 +104,6 @@ jobs:
         with:
           ref: '${{ github.event.pull_request.head.ref }}'
       - run: |
-          # ensure latest updates
-          git pull
           # use latexmkrc (which is disabled due to easy overleaf usage)
           cp _latexmkrc latexmkrc
       - name: Install TeX Live
@@ -117,8 +115,18 @@ jobs:
           updmap -sys
           texhash
           tlmgr generate language --rebuild-sys
-      - run: latexmk paper-conference.tex
-      - run: latexmk paper-conference-minted.tex
+      - name: Build all examples
+        run: |
+          for doc in paper*.tex; do
+            latexmk "$doc"
+
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo "## $doc" >> "$GITHUB_STEP_SUMMARY"
+            echo "" >> "$GITHUB_STEP_SUMMARY"
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+            texlogsieve < "${doc%.tex}.log" >> "$GITHUB_STEP_SUMMARY" || true
+            echo '```' >> "$GITHUB_STEP_SUMMARY"
+          done
       - run: |
           mkdir publish
           cp *.pdf publish/
