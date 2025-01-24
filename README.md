@@ -47,7 +47,7 @@ On the command line, there are additional features:
 
 Following features are enabled in this template:
 
-- Provides a skeletal [paper.tex](paper.tex) file
+- Provides a skeletal [paper.tex](https://latextemplates.github.io/IEEE/paper.tex) file
 - Shows how IEEE copyright notice can be added.
 - (Optional) Typesetting of listings using advanced highlighting powered by the [minted] package.
 - Generated PDF allows for copy and paste of text without getting words with ligatures such as "workflow" destroyed.
@@ -88,7 +88,7 @@ A first step towards that is done at the [biblatex-ieee package](https://ctan.or
 ## Attention regarding `compsocconf`
 
 Some conferences distribute a `IEEEtran.cls` V1.7a dated 2007 and a parameter `compsocconf`.
-**The parameter `compsocconf` was NEVER included in Michael Shell's `IEEEtran.cls` file. It is unclear, who did this patch and why it is around in the wild.**
+**The parameter `compsocconf` was NEVER included in Michael Shell's IEEEtran.cls file. It is unclear, who did this patch and why it is around in the wild.**
 
 The most recent version is V1.8b and automatically distributed over CTAN, because it is actively maintained by Michael Shell at <http://www.michaelshell.org/tex/ieeetran/>.
 A full changelog is available at <http://mirror.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/changelog.txt>.
