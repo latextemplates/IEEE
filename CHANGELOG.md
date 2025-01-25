@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/).
 From 2022-02-28 onwards, versioning is done using [Calendar Versioning](https://calver.org/).
 
+## [Unreleased]
+
+### Changed
+
+- Renamed to `ieee-enhanced` to show that this an enhanced version of the existing template [IEEEtran](https://ctan.org/pkg/ieeetran)
+
 ## [2025-01-25]
 
 ### Added
