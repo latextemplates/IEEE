@@ -60,10 +60,8 @@ jobs:
         working-directory: /tmp/ltg
         run: |
           if [ "${{ matrix.listings }}" == "minted" ]; then
-            # paper.tex should not be overwritten
-            mv paper.tex paper-conference-minted.tex
-          else
-            cp paper.tex paper-conference.tex
+            # paper-conference.tex should not be overwritten
+            mv paper-conference.tex paper-conference-minted.tex
           fi
 
           # remove files which should not be overwritten
@@ -130,7 +128,7 @@ jobs:
       - run: |
           mkdir publish
           cp *.pdf publish/
-          cp paper.tex publish/
+          cp paper-conference.tex publish/
           cp README.md publish/
           cp .github/_config.yml publish/
       - uses: actions/upload-artifact@v4
