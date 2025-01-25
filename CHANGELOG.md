@@ -143,6 +143,7 @@ From 2022-02-28 onwards, versioning is done using [Calendar Versioning](https://
 
 First release using semantic versioning.
 
+[Unreleased]: https://github.com/latextemplates/LNCS/compare/2025-01-25...main
 [2025-01-25]: https://github.com/latextemplates/LNCS/compare/2025-01-20...2025-01-25
 [2025-01-20]: https://github.com/latextemplates/IEEE/compare/2025-01-14...2025-01-20
 [2025-01-14]: https://github.com/latextemplates/IEEE/compare/2022-06-06...2025-01-14
