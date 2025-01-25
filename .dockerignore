@@ -2,8 +2,8 @@
 Dockerfile
 generator-latex-template
 
-paper.pdf
-paper-*.pdf
+paper-conference.pdf
+paper-conference-*.pdf
 graphics/*.pdf_tex
 
 # spelling

@@ -13,7 +13,7 @@ In case you need other configurations, please adapt `paper-conference.tex` or ru
 ## Usage
 
 - `thesis-example.tex` is the main document
-- Use "lualatex + bibtex" in your TeX editor or `latexmk  paper` / `make` in the command line
+- Use "lualatex + bibtex" in your TeX editor or `latexmk  paper-conference` / `make` in the command line
 
 ### Using `latexmk`
 
@@ -24,7 +24,7 @@ To build the whole document, execute following command.
 Note that this requires a working perl installation.
 
 ```bash
-latexmk paper
+latexmk paper-conference
 ```
 
 To enable latexmk, please move `_latexmkrc` to `latexmkrc`.
@@ -32,7 +32,7 @@ To enable latexmk, please move `_latexmkrc` to `latexmkrc`.
 In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
 
 ```bash
-lualatex paper
+lualatex paper-conference
 ```
 
 ### Advanced usage
@@ -47,7 +47,7 @@ On the command line, there are additional features:
 
 Following features are enabled in this template:
 
-- Provides a skeletal [paper.tex](paper.tex) file
+- Provides a skeletal [paper-conference.tex](paper-conference.tex) file
 - Shows how IEEE copyright notice can be added.
 - (Optional) Typesetting of listings using advanced highlighting powered by the [minted] package.
 - Generated PDF allows for copy and paste of text without getting words with ligatures such as "workflow" destroyed.
@@ -141,8 +141,8 @@ To have minted running properly, you have to do following steps on Windows:
 
 1. Install python: `choco install python` - that uses [chocolatey](https://chocolatey.org/) to install Python
 2. Install [pygments]: `pip instal pygments` - that uses the Pyhton package manager to install the pygments library
-3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper`.
-   You can also just execute `latexmk paper`.
+3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper-conference`.
+   You can also just execute `latexmk paper-conference`.
 
 ### VSCode configuration
 
@@ -273,15 +273,17 @@ The most simple solution to get more space is to exchange the font.
 
 Execute following command:
 
-    latexindent -l -s -sl -w paper.tex
+```bash
+latexindent -l -s -sl -w paper-conference.tex
+```
 
 ### Q: I want to obey the one-sentence-per-line rule. How can I do that?
 
 Execute following command:
 
-    latexindent -m -l -s -sl -w paper.tex
-
-Attention! This is work in progress and does not always produce best results.
+```bash
+latexindent -m -l -s -sl -w paper-conference.tex
+```
 
 ### Q: Is it possible produce a self-archiving version?
 
