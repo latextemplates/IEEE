@@ -307,6 +307,10 @@ If you don't do this, `latexmk` tries to execute `latex`, which tries to produce
 
 - Other templates: <https://latextemplates.github.io/>
 
+## License
+
+The license of this work is [0BSD](https://spdx.org/licenses/0BSD.html) which corresponds to "public domain".
+Any derived work can freely be relicensed and can omit original copyright and license information.
 [biber]: https://www.ctan.org/pkg/biber
 [biblatex]: http://tex.stackexchange.com/tags/biblatex/info
 [bibtex]: https://www.ctan.org/pkg/bibtex
