@@ -9,7 +9,7 @@ concurrency:
   cancel-in-progress: true
 jobs:
   pdf:
-    name: latexmk paper-conference
+    name: latexmk paper
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
@@ -26,7 +26,7 @@ jobs:
           if [ ! -f "latexmkrc" ]; then
             cp "_latexmkrc" "latexmkrc"
           fi
-      - run: latexmk paper-conference
+      - run: latexmk paper
 
       # Highlight mis-spelled words in the PDF
       - uses: bscott-zebra/cache-apt-pkgs-action@avoid_using_xargs
@@ -38,21 +38,21 @@ jobs:
         run: |
           for tex in $(ls *.tex content/*.tex 2>/dev/null); do
             # The lualatex package "spelling" requires the content to be in a file ending with ".spell.bad"
-            aspell --mode=tex -l en_US --encoding=utf-8 --conf=./.aspell.conf -p ./.aspell.en.pws list < $tex | sort | uniq >> paper-conference.spell.bad
+            aspell --mode=tex -l en_US --encoding=utf-8 --conf=./.aspell.conf -p ./.aspell.en.pws list < $tex | sort | uniq >> paper.spell.bad
           done
-      - run: latexmk paper-conference
+      - run: latexmk paper
 
       - name: Job summary using texlogsieve
         run: |
           echo '```' >> $GITHUB_STEP_SUMMARY
-          texlogsieve < paper-conference.log >> $GITHUB_STEP_SUMMARY || true
+          texlogsieve < paper.log >> $GITHUB_STEP_SUMMARY || true
           echo '```' >> $GITHUB_STEP_SUMMARY
       - uses: actions/upload-artifact@v4
         with:
           name: test-result
           path: |
-            paper-conference.pdf
-            paper-conference.log
+            paper.pdf
+            paper.log
   word-count:
     runs-on: ubuntu-latest
     steps:
@@ -64,17 +64,17 @@ jobs:
           package_file: '${{ github.workspace }}/Texlivefile'
       - name: Count words
         run: |
-          texcount -utf8 -inc paper-conference.tex > texcount.txt
+          texcount -utf8 -inc paper.tex > texcount.txt
           echo "## TeXcount word count" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           cat "texcount.txt" >> $GITHUB_STEP_SUMMARY
 
-          texcount -utf8 -inc -v -html paper-conference.tex > texcount.html
+          texcount -utf8 -inc -v -html paper.tex > texcount.html
 
           # output for summary
           # too verbose - therefore disabled
           #
-          # texcount -utf8 -inc -v -htmlcore paper-conference.tex > texcount.html-body
+          # texcount -utf8 -inc -v -htmlcore paper.tex > texcount.html-body
           # echo "" >> $GITHUB_STEP_SUMMARY
           # echo "## TeXcount LaTeX interpretation" >> $GITHUB_STEP_SUMMARY
           # echo "" >> $GITHUB_STEP_SUMMARY
@@ -114,7 +114,7 @@ jobs:
               echo "| $tex | ✅ |" >> $GITHUB_STEP_SUMMARY
             else
               echo "| $tex | ❌ $words |" >> $GITHUB_STEP_SUMMARY
-              if [[ "$tex" == "paper-conference.tex" ]]; then
+              if [[ "$tex" == "paper.tex" ]]; then
                 failure=1
               fi
             fi
