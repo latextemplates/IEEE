@@ -10,7 +10,7 @@ From 2022-02-28 onwards, versioning is done using [Calendar Versioning](https://
 ### Changed
 
 - Renamed to `ieee-enhanced` to show that this an enhanced version of the existing template [IEEEtran](https://ctan.org/pkg/ieeetran)
-- Removed `paper.tex` (because it is a duplicate of  paper-conference.tex`)
+- Removed `paper.tex` (because it is a duplicate of `paper-conference.tex`)
 
 ## [2025-01-25]
 
