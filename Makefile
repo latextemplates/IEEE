@@ -12,7 +12,7 @@ editor = gedit
 # Files
 
 ## Main file name and literature list
-MASTER_TEX = paper-conference.tex
+MASTER_TEX = paper.tex
 LITERATURE = paper.bib
 
 ## Derived file names

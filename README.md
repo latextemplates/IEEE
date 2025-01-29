@@ -12,8 +12,8 @@ In case you need other configurations, please adapt `paper-conference.tex` or ru
 
 ## Usage
 
-- `paper-conference.tex` is the main document
-- Use "lualatex + bibtex" in your TeX editor or `latexmk  paper-conference` / `make` in the command line
+- `paper.tex` is the main document
+- Use "lualatex + bibtex" in your TeX editor or `latexmk  paper` / `make` in the command line
 
 ### Using `latexmk`
 
@@ -25,7 +25,7 @@ To build the whole document, execute following command.
 Note that this requires a working perl installation.
 
 ```bash
-latexmk paper-conference
+latexmk paper
 ```
 
 To enable latexmk, please move `_latexmkrc` to `latexmkrc`.
@@ -33,7 +33,7 @@ To enable latexmk, please move `_latexmkrc` to `latexmkrc`.
 If you want automatic compilation use following command:
 
 ```bash
-latexmk -pvc paper-conference
+latexmk -pvc paper
 ```
 
 This will also open a [Sumatra PDF] and only works with the supplied configuration.
@@ -53,10 +53,10 @@ For instance, for support of makeglossaries see <http://tex.stackexchange.com/qu
 In case something goes wrong, you can instruct the LaTeX compiler to stop at the first error:
 
 ```bash
-lualatex --synctex=1 --shell-escape paper-conference
+lualatex --synctex=1 --shell-escape paper
 ```
 
-Run `bibtex paper-conference` to get the bibliography rendered (execute `lualatex` afterwards).
+Run `bibtex paper` to get the bibliography rendered (execute `lualatex` afterwards).
 
 ### Advanced usage
 
@@ -73,7 +73,7 @@ On the command line, there are additional features:
 
 Following features are enabled in this template:
 
-- Provides a skeletal [paper-conference.tex](paper-conference.tex) file
+- Provides a skeletal [paper.tex](paper.tex) file
 - Shows how IEEE copyright notice can be added.
 - (Optional) Typesetting of listings using advanced highlighting powered by the [minted] package.
   `minted` provides better output than [listings], but requires [pygments] to be installed.
@@ -176,8 +176,8 @@ To have minted running properly, you have to do following steps on Windows:
 
 1. Install python: `choco install python` - that uses [chocolatey](https://chocolatey.org/) to install Python
 2. Install [pygments]: `pip instal pygments` - that uses the Pyhton package manager to install the pygments library
-3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper-conference`.
-   You can also just execute `latexmk paper-conference`.
+3. When latexing, use `-shell-escape`: `pdflatex -shell-escape paper`.
+   You can also just execute `latexmk paper`.
 
 ### VSCode configuration
 
@@ -281,7 +281,7 @@ docker build -t ltg .
 
 ### Files
 
-- `paper-conference.tex` - The main `.tex` file loading all LaTeX packages and their configurations.
+- `paper.tex` - The main `.tex` file loading all LaTeX packages and their configurations.
   - Add text here
   - Adjust title etc. here
 - [bibliography.bib](bibliography.bib) - Bibliography. [biblatex] format. Manage it with [JabRef].
@@ -330,7 +330,7 @@ The most simple solution to get more space is to exchange the font.
 
 ### Q: How can I reformat my `.tex` files?
 
-Execute `latexindent -l -s -sl -w paper-conference.tex`
+Execute `latexindent -l -s -sl -w paper.tex`
 
 Alternatively, execute `make format`.
 
@@ -392,7 +392,7 @@ Follow the steps at <https://tex.stackexchange.com/a/548335/9075>
 Try with following command
 
 ```bash
-lualatex -shell-escape --extra-mem-top=10000000 --synctex=1 paper-conference.tex
+lualatex -shell-escape --extra-mem-top=10000000 --synctex=1 paper.tex
 ```
 
 See <https://tex.stackexchange.com/a/124206/9075> for details.

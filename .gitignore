@@ -1,5 +1,5 @@
-paper-conference.pdf
-paper-conference-*.pdf
+paper.pdf
+paper-*.pdf
 figures/*.pdf_tex
 
 # spelling
