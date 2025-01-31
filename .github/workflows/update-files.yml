@@ -59,6 +59,9 @@ jobs:
       - name: Prepare files
         working-directory: /tmp/ltg
         run: |
+          # We update check.yml manually (due to rights management of GitHub and "paper-conference.tex" naming)
+          rm .github/workflows/check.yml
+
           if [ "${{ matrix.listings }}" == "minted" ]; then
             # paper-conference.tex should not be overwritten
             mv paper.tex paper-conference-minted.tex
