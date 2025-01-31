@@ -12,6 +12,10 @@ From 2022-02-28 onwards, versioning is done using [Calendar Versioning](https://
 - Renamed to `ieee-enhanced` to show that this an enhanced version of the existing template [IEEEtran](https://ctan.org/pkg/ieeetran)
 - Removed `paper.tex` (because it is a duplicate of `paper-conference.tex`)
 
+### Added
+
+- Added `commands.tex` to collects all LaTeX macros / commands for a better overview on available (custom) LaTeX commands.
+
 ## [2025-01-25]
 
 ### Added
